@@ -13,7 +13,11 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
+<<<<<<< HEAD
         Schema::connection('mysql')->create('failed_jobs', function (Blueprint $table) {
+=======
+        Schema::create('failed_jobs', function (Blueprint $table) {
+>>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
             $table->id();
             $table->string('uuid')->unique();
             $table->text('connection');
