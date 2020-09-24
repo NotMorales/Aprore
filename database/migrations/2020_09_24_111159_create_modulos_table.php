@@ -20,6 +20,7 @@ class CreateModulosTable extends Migration
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
+
     }
 
     /**

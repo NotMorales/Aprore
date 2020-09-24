@@ -13,11 +13,7 @@ class CreatePersonalAccessTokensTable extends Migration
      */
     public function up()
     {
-<<<<<<< HEAD
         Schema::connection('mysql')->create('personal_access_tokens', function (Blueprint $table) {
-=======
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
             $table->bigIncrements('id');
             $table->morphs('tokenable');
             $table->string('name');

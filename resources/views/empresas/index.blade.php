@@ -14,8 +14,8 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Basic Demo
-                        <span class="d-block text-muted pt-2 font-size-sm">sorting &amp; pagination remote datasource</span></h3>
+                        <h3 class="card-label">Empresas registradas:
+                        <span class="d-block text-muted pt-2 font-size-sm">Listado de empresas, relacionadas con aprore.</span></h3>
                     </div>
                     <div class="card-toolbar">
                         <x-boton class="btn-primary" title="exportar">

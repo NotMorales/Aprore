@@ -590,10 +590,9 @@ class ComposerStaticInitd0a7ea4dbbb35149f68f16bf3b2e78dc
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-<<<<<<< HEAD
+        'App\\Http\\Controllers\\EmpresaController' => __DIR__ . '/../..' . '/app/Http/Controllers/EmpresaController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
+        'App\\Http\\Controllers\\StaffController' => __DIR__ . '/../..' . '/app/Http/Controllers/StaffController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -603,11 +602,14 @@ class ComposerStaticInitd0a7ea4dbbb35149f68f16bf3b2e78dc
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
-<<<<<<< HEAD
+        'App\\Http\\Requests\\EmpresaRequests' => __DIR__ . '/../..' . '/app/Http/Requests/EmpresaRequests.php',
+        'App\\Http\\Requests\\EmpresaStaffRequests' => __DIR__ . '/../..' . '/app/Http/Requests/EmpresaStaffRequests.php',
+        'App\\Models\\Empresa' => __DIR__ . '/../..' . '/app/Models/Empresa.php',
+        'App\\Models\\EmpresaPriv' => __DIR__ . '/../..' . '/app/Models/EmpresaPriv.php',
+        'App\\Models\\Modulo' => __DIR__ . '/../..' . '/app/Models/Modulo.php',
         'App\\Models\\Permiso' => __DIR__ . '/../..' . '/app/Models/Permiso.php',
+        'App\\Models\\Persona' => __DIR__ . '/../..' . '/app/Models/Persona.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -616,8 +618,13 @@ class ComposerStaticInitd0a7ea4dbbb35149f68f16bf3b2e78dc
         'App\\Providers\\FortifyServiceProvider' => __DIR__ . '/../..' . '/app/Providers/FortifyServiceProvider.php',
         'App\\Providers\\JetstreamServiceProvider' => __DIR__ . '/../..' . '/app/Providers/JetstreamServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Traits\\UserTrait' => __DIR__ . '/../..' . '/app/Traits/UserTrait.php',
         'App\\View\\Components\\AppLayout' => __DIR__ . '/../..' . '/app/View/Components/AppLayout.php',
         'App\\View\\Components\\GuestLayout' => __DIR__ . '/../..' . '/app/View/Components/GuestLayout.php',
+        'App\\View\\Components\\errors' => __DIR__ . '/../..' . '/app/View/Components/errors.php',
+        'App\\View\\Components\\noticia' => __DIR__ . '/../..' . '/app/View/Components/noticia.php',
+        'App\\View\\Components\\sesiones' => __DIR__ . '/../..' . '/app/View/Components/sesiones.php',
+        'App\\View\\Components\\subheader' => __DIR__ . '/../..' . '/app/View/Components/subheader.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
@@ -792,10 +799,7 @@ class ComposerStaticInitd0a7ea4dbbb35149f68f16bf3b2e78dc
         'DASPRiD\\Enum\\NullValue' => __DIR__ . '/..' . '/dasprid/enum/src/NullValue.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
-<<<<<<< HEAD
         'Database\\Seeders\\RoleSeeder' => __DIR__ . '/../..' . '/database/seeders/RoleSeeder.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',

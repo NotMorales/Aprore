@@ -54,10 +54,13 @@
                             <a class="nav-link active" data-toggle="tab" href="#home">Modulos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#menu1" id="staff">Staff</a>
+                            <a class="nav-link" data-toggle="tab" href="#menu0" id="staff">Administradores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#menu2">Administradores</a>
+                            <a class="nav-link" data-toggle="tab" href="#menu1" id="staff">Staffs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#menu2">Encargados</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#menu3">Secretarias</a>
@@ -85,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table class="display responsive nowrap" width="100%" id="myTable">
+                                    <table class="display responsive nowrap" width="100%" id="myTable0">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -108,6 +111,56 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="menu0" class="container tab-pane active"><br>
+                            <div class="card card-custom gutter-b">
+                                <div class="card-header flex-wrap py-3">
+                                    <div class="card-title">
+                                        <h3 class="card-label">Administradores:</h3>
+                                    </div>
+                                    <div class="card-toolbar">
+                                        <x-boton class="btn-primary" title="Crear Administrador">
+                                            <x-slot name="svg">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
+                                                </g>
+                                            </x-slot>
+                                            {{ route('empresa.admin.create', $empresa) }}
+                                        </x-boton>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <table class="display responsive nowrap" width="100%" id="myTable1">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Correo</th>
+                                                <th>Telefono</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($admins as $admin)
+                                                <tr>
+                                                    <td>{{ $admin->persona->nombre }} {{ $admin->persona->apellido_paterno }}</td>
+                                                    <td>{{ $admin->email }}</td>
+                                                    <td>{{ $admin->persona->telefono }}</td>
+                                                    <td>
+                                                        <a href="#" data-toggle="modal" data-target="#verPersona"
+                                                        data-nombre="{{ $admin->persona->nombre }}" data-paterno="{{ $admin->persona->apellido_paterno }}"
+                                                        data-sexo="{{ $admin->persona->sexo }}" data-materno="{{ $admin->persona->apellido_materno }}"
+                                                        data-telefono="{{ $admin->persona->telefono }}" data-fecha="{{ $admin->persona->fecha_nacimiento }}"
+                                                        data-name="{{ $admin->name }}" data-correo="{{ $admin->email }}"
+                                                        data-foto="{{ $admin->profile_photo_path }}" 
+                                                        >Ver</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>   
+                        </div>
                         <div id="menu1" class="container tab-pane active"><br>
                             <div class="card card-custom gutter-b">
                                 <div class="card-header flex-wrap py-3">
@@ -127,7 +180,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table class="display responsive nowrap" width="100%" id="myTableD">
+                                    <table class="display responsive nowrap" width="100%" id="myTable2">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -162,22 +215,22 @@
                             <div class="card card-custom gutter-b">
                                 <div class="card-header flex-wrap py-3">
                                     <div class="card-title">
-                                        <h3 class="card-label">Administradores:</h3>
+                                        <h3 class="card-label">Encargados:</h3>
                                     </div>
                                     <div class="card-toolbar">
-                                        <x-boton class="btn-primary" title="Crear Administrador">
+                                        <x-boton class="btn-primary" title="Crear Encargado">
                                             <x-slot name="svg">
                                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                     <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
                                                     <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
                                                 </g>
                                             </x-slot>
-                                            {{ route('empresa.admin.create', $empresa) }}
+                                            {{ route('empresa.encargado.create', $empresa) }}
                                         </x-boton>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table class="display responsive nowrap" width="100%" id="myTableT">
+                                    <table class="display responsive nowrap" width="100%" id="myTable3">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -187,18 +240,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($admins as $admin)
+                                            @foreach ($encargados as $encargado)
                                                 <tr>
-                                                    <td>{{ $admin->persona->nombre }} {{ $admin->persona->apellido_paterno }}</td>
-                                                    <td>{{ $admin->email }}</td>
-                                                    <td>{{ $admin->persona->telefono }}</td>
+                                                    <td>{{ $encargado->persona->nombre }} {{ $encargado->persona->apellido_paterno }}</td>
+                                                    <td>{{ $encargado->email }}</td>
+                                                    <td>{{ $encargado->persona->telefono }}</td>
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#verPersona"
-                                                        data-nombre="{{ $admin->persona->nombre }}" data-paterno="{{ $admin->persona->apellido_paterno }}"
-                                                        data-sexo="{{ $admin->persona->sexo }}" data-materno="{{ $admin->persona->apellido_materno }}"
-                                                        data-telefono="{{ $admin->persona->telefono }}" data-fecha="{{ $admin->persona->fecha_nacimiento }}"
-                                                        data-name="{{ $admin->name }}" data-correo="{{ $admin->email }}"
-                                                        data-foto="{{ $admin->profile_photo_path }}" 
+                                                        data-nombre="{{ $encargado->persona->nombre }}" data-paterno="{{ $encargado->persona->apellido_paterno }}"
+                                                        data-sexo="{{ $encargado->persona->sexo }}" data-materno="{{ $encargado->persona->apellido_materno }}"
+                                                        data-telefono="{{ $encargado->persona->telefono }}" data-fecha="{{ $encargado->persona->fecha_nacimiento }}"
+                                                        data-name="{{ $encargado->name }}" data-correo="{{ $encargado->email }}"
+                                                        data-foto="{{ $encargado->profile_photo_path }}" 
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -227,7 +280,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <table class="display responsive nowrap" width="100%" id="myTableC">
+                                    <table class="display responsive nowrap" width="100%" id="myTable4">
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -293,23 +346,30 @@
         });
         
         $(document).ready( function () {
-            $('#myTable').DataTable({
+            $('#myTable0').DataTable({
                 responsive: true
             });
 
-            $('#myTableD').DataTable({
+            $('#myTable1').DataTable({
                 responsive: true
             });
 
-            $('#myTableT').DataTable({
+            $('#myTable2').DataTable({
                 responsive: true
             });
-            $('#myTableC').DataTable({
+
+            $('#myTable3').DataTable({
                 responsive: true
             });
+
+            $('#myTable4').DataTable({
+                responsive: true
+            });
+            $('#menu0').addClass( "fade" );
             $('#menu1').addClass( "fade" );
             $('#menu2').addClass( "fade" );
             $('#menu3').addClass( "fade" );
+            $('#menu0').removeClass( "active" );
             $('#menu1').removeClass( "active" );
             $('#menu2').removeClass( "active" );
             $('#menu3').removeClass( "active" );

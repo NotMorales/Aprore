@@ -81,9 +81,10 @@ class EmpresaController extends Controller
         return view('empresas.show', [
             'empresa' => $empresa,
             'modulos' => Auth::user()->empresaPriv->modulos,
+            'admins'  =>Empresa::find($empresa->id)->staffs,
             'staffs'  => Empresa::find($empresa->id)->staffs,
-            'admins'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '3'] ])->get(),
-            'secres'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '4'] ])->get()
+            'encargados'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '4'] ])->get(),
+            'secres'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '5'] ])->get()
         ]);
     }
 

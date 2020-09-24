@@ -56,7 +56,7 @@ class StaffController extends Controller
                 ]);
 
                 $idUser = DB::connection('mysql')->table('users')->insertGetID([
-                    'role_id'           => 2,
+                    'role_id'           => 3,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],
@@ -66,7 +66,7 @@ class StaffController extends Controller
 
                 DB::connection($empresa->data_base)->table('users')->insert([
                     'id'                => $idUser,
-                    'role_id'           => 2,
+                    'role_id'           => 3,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],
@@ -76,13 +76,15 @@ class StaffController extends Controller
 
                 $idStaff = DB::connection('mysql')->table('staffs')->insertGetID([
                     'user_id'           => $idUser,
-                    'empresa_id'        => $empresa->id
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 3
                 ]);
 
                 DB::connection($empresa->data_base)->table('staffs')->insert([
                     'id'                => $idStaff,
                     'user_id'           => $idUser,
-                    'empresa_id'        => $empresa->id
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 3
                 ]);
             DB::commit();
         } catch (\Throwable $th) {
@@ -106,7 +108,7 @@ class StaffController extends Controller
 
     public function adminStore(EmpresaStaffRequests $request)
     {
-        Gate::authorize('havepermiso', 'Empresa.staff.create');
+        Gate::authorize('havepermiso', 'Empresa.admin.create');
         
         $empresa = Empresa::findOrFail( $request['empresa'] );        
         $request->validated();
@@ -134,7 +136,7 @@ class StaffController extends Controller
                 ]);
 
                 $idUser = DB::connection('mysql')->table('users')->insertGetID([
-                    'role_id'           => 3,
+                    'role_id'           => 2,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],
@@ -144,12 +146,25 @@ class StaffController extends Controller
 
                 DB::connection($empresa->data_base)->table('users')->insert([
                     'id'                => $idUser,
-                    'role_id'           => 3,
+                    'role_id'           => 2,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],
                     'email'             => $request['email'],
                     'password'          => Hash::make( $request['password'] )
+                ]);
+
+                $idStaff = DB::connection('mysql')->table('staffs')->insertGetID([
+                    'user_id'           => $idUser,
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 2
+                ]);
+
+                DB::connection($empresa->data_base)->table('staffs')->insert([
+                    'id'                => $idStaff,
+                    'user_id'           => $idUser,
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 2
                 ]);
                 
             DB::commit();
@@ -161,6 +176,74 @@ class StaffController extends Controller
         
         return redirect()->route('empresa.show', $empresa)
             ->with('success', "El usuario Administrador fue creado correctamente.");
+    }
+
+    public function encargadoCreate(Empresa $empresa) {
+        Gate::authorize('havepermiso', 'Empresa.encargado.create');
+
+        return view('staff.create-empresa-encargado', [
+            'empresa' => $empresa,
+            'persona' => new Persona,
+        ]);
+    }
+
+    public function encargadoStore(EmpresaStaffRequests $request)
+    {
+        Gate::authorize('havepermiso', 'Empresa.encargado.create');
+        
+        $empresa = Empresa::findOrFail( $request['empresa'] );        
+        $request->validated();
+
+        try {
+            DB::beginTransaction();
+                
+                $idPersona = DB::connection('mysql')->table('personas')->insertGetID([
+                    'nombre'            => $request['nombre'],
+                    'apellido_paterno'  => $request['apellido_paterno'],
+                    'apellido_materno'  => $request['apellido_materno'],
+                    'sexo'              => $request['sexo'],
+                    'telefono'          => $request['telefono'],
+                    'fecha_nacimiento'  => $request['fecha_nacimiento']
+                ]);
+                
+                DB::connection($empresa->data_base)->table('personas')->insert([
+                    'id'                => $idPersona,
+                    'nombre'            => $request['nombre'],
+                    'apellido_paterno'  => $request['apellido_paterno'],
+                    'apellido_materno'  => $request['apellido_materno'],
+                    'sexo'              => $request['sexo'],
+                    'telefono'          => $request['telefono'],
+                    'fecha_nacimiento'  => $request['fecha_nacimiento']
+                ]);
+
+                $idUser = DB::connection('mysql')->table('users')->insertGetID([
+                    'role_id'           => 4,
+                    'persona_id'        => $idPersona,
+                    'empresa_id'        => $empresa->id,
+                    'name'              => $request['name'],
+                    'email'             => $request['email'],
+                    'password'          => Hash::make( $request['password'] )
+                ]);
+
+                DB::connection($empresa->data_base)->table('users')->insert([
+                    'id'                => $idUser,
+                    'role_id'           => 4,
+                    'persona_id'        => $idPersona,
+                    'empresa_id'        => $empresa->id,
+                    'name'              => $request['name'],
+                    'email'             => $request['email'],
+                    'password'          => Hash::make( $request['password'] )
+                ]);
+                
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('empresa.show', $empresa)
+                ->with('danger', "El usuario Encargado NO pudo crearse correctamente. Comunicarse con TI de Aprore.");
+        }
+        
+        return redirect()->route('empresa.show', $empresa)
+            ->with('success', "El usuario Encargado fue creado correctamente.");
     }
 
     public function secreCreate(Empresa $empresa) {
@@ -202,7 +285,7 @@ class StaffController extends Controller
                 ]);
 
                 $idUser = DB::connection('mysql')->table('users')->insertGetID([
-                    'role_id'           => 4,
+                    'role_id'           => 5,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],
@@ -212,7 +295,7 @@ class StaffController extends Controller
 
                 DB::connection($empresa->data_base)->table('users')->insert([
                     'id'                => $idUser,
-                    'role_id'           => 4,
+                    'role_id'           => 5,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
                     'name'              => $request['name'],

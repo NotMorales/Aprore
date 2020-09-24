@@ -17,11 +17,12 @@ INSERT INTO `personas` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, 
 --
 
 INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Administrador Aprore', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
-(2, 'Staff Aprore', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
-(3, 'Administrador Cliente', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
-(4, 'Secretaria Cliente', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
-(5, 'Trabajador', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL);
+(1, 'Super Administrador', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
+(2, 'Administrador Aprore', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
+(3, 'Staff Aprore', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
+(4, 'Administrador Cliente', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
+(5, 'Secretaria Cliente', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL),
+(6, 'Trabajador', NULL, '2020-09-19 16:43:03', '2020-09-19 16:43:03', NULL);
 
 --
 -- Volcado de datos para la tabla `users`
@@ -68,7 +69,12 @@ INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at
 (17, 'Empresa.secre.create', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (18, 'Empresa.secre.edit', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (19, 'Empresa.secre.show', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
-(20, 'Empresa.secre.destroy', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(20, 'Empresa.encargado.destroy', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(21, 'Empresa.encargado.index', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(22, 'Empresa.encargado.create', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(23, 'Empresa.encargado.edit', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(24, 'Empresa.encargado.show', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(25, 'Empresa.encargado.destroy', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
 
 
 --
@@ -95,4 +101,10 @@ INSERT INTO `permiso_role` (`id`, `permiso_id`, `role_id`, `created_at`, `update
 (17, 17, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (18, 18, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (19, 19, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
-(20, 20, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(20, 20, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(21, 21, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(22, 22, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(23, 23, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(24, 24, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(25, 25, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(26, 26, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);

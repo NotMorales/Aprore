@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateModuloUserTable extends Migration
+class CreateEmpresaModuloTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateModuloUserTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql')->create('modulo_user', function (Blueprint $table) {
+        Schema::connection('mysql')->create('empresa_modulo', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('modulo_id');
             $table->foreign('modulo_id')->references('id')->on('modulos');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')->references('id')->on('empresas');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable();
         });
@@ -31,6 +31,6 @@ class CreateModuloUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modulo_user');
+        Schema::dropIfExists('empresa_modulo');
     }
 }

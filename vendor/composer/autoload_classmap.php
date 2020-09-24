@@ -15,10 +15,9 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
-<<<<<<< HEAD
+    'App\\Http\\Controllers\\EmpresaController' => $baseDir . '/app/Http/Controllers/EmpresaController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
+    'App\\Http\\Controllers\\StaffController' => $baseDir . '/app/Http/Controllers/StaffController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -28,11 +27,14 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
-<<<<<<< HEAD
+    'App\\Http\\Requests\\EmpresaRequests' => $baseDir . '/app/Http/Requests/EmpresaRequests.php',
+    'App\\Http\\Requests\\EmpresaStaffRequests' => $baseDir . '/app/Http/Requests/EmpresaStaffRequests.php',
+    'App\\Models\\Empresa' => $baseDir . '/app/Models/Empresa.php',
+    'App\\Models\\EmpresaPriv' => $baseDir . '/app/Models/EmpresaPriv.php',
+    'App\\Models\\Modulo' => $baseDir . '/app/Models/Modulo.php',
     'App\\Models\\Permiso' => $baseDir . '/app/Models/Permiso.php',
+    'App\\Models\\Persona' => $baseDir . '/app/Models/Persona.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
@@ -41,8 +43,13 @@ return array(
     'App\\Providers\\FortifyServiceProvider' => $baseDir . '/app/Providers/FortifyServiceProvider.php',
     'App\\Providers\\JetstreamServiceProvider' => $baseDir . '/app/Providers/JetstreamServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Traits\\UserTrait' => $baseDir . '/app/Traits/UserTrait.php',
     'App\\View\\Components\\AppLayout' => $baseDir . '/app/View/Components/AppLayout.php',
     'App\\View\\Components\\GuestLayout' => $baseDir . '/app/View/Components/GuestLayout.php',
+    'App\\View\\Components\\errors' => $baseDir . '/app/View/Components/errors.php',
+    'App\\View\\Components\\noticia' => $baseDir . '/app/View/Components/noticia.php',
+    'App\\View\\Components\\sesiones' => $baseDir . '/app/View/Components/sesiones.php',
+    'App\\View\\Components\\subheader' => $baseDir . '/app/View/Components/subheader.php',
     'ArithmeticError' => $vendorDir . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/CorsService.php',
@@ -217,10 +224,7 @@ return array(
     'DASPRiD\\Enum\\NullValue' => $vendorDir . '/dasprid/enum/src/NullValue.php',
     'Database\\Factories\\UserFactory' => $baseDir . '/database/factories/UserFactory.php',
     'Database\\Seeders\\DatabaseSeeder' => $baseDir . '/database/seeders/DatabaseSeeder.php',
-<<<<<<< HEAD
     'Database\\Seeders\\RoleSeeder' => $baseDir . '/database/seeders/RoleSeeder.php',
-=======
->>>>>>> 9ed7d5fc5b4ed4f293600aa9e3fd7803762622ee
     'DeepCopy\\DeepCopy' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
     'DeepCopy\\Exception\\CloneException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
     'DeepCopy\\Exception\\PropertyException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',
