@@ -118,15 +118,17 @@
                                         <h3 class="card-label">Administradores:</h3>
                                     </div>
                                     <div class="card-toolbar">
-                                        <x-boton class="btn-primary" title="Crear Administrador">
-                                            <x-slot name="svg">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
-                                                </g>
-                                            </x-slot>
-                                            {{ route('empresa.admin.create', $empresa) }}
-                                        </x-boton>
+                                        @can('havepermiso', 'Empresa.admin.create')
+                                            <x-boton class="btn-primary" title="Crear Administrador">
+                                                <x-slot name="svg">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
+                                                    </g>
+                                                </x-slot>
+                                                {{ route('empresa.admin.create', $empresa) }}
+                                            </x-boton>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -142,16 +144,16 @@
                                         <tbody>
                                             @foreach ($admins as $admin)
                                                 <tr>
-                                                    <td>{{ $admin->persona->nombre }} {{ $admin->persona->apellido_paterno }}</td>
-                                                    <td>{{ $admin->email }}</td>
-                                                    <td>{{ $admin->persona->telefono }}</td>
+                                                    <td>{{ $admin->user->persona->nombre }} {{ $admin->user->persona->apellido_paterno }}</td>
+                                                    <td>{{ $admin->user->email }}</td>
+                                                    <td>{{ $admin->user->persona->telefono }}</td>
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#verPersona"
-                                                        data-nombre="{{ $admin->persona->nombre }}" data-paterno="{{ $admin->persona->apellido_paterno }}"
-                                                        data-sexo="{{ $admin->persona->sexo }}" data-materno="{{ $admin->persona->apellido_materno }}"
-                                                        data-telefono="{{ $admin->persona->telefono }}" data-fecha="{{ $admin->persona->fecha_nacimiento }}"
+                                                        data-nombre="{{ $admin->user->persona->nombre }}" data-paterno="{{ $admin->user->persona->apellido_paterno }}"
+                                                        data-sexo="{{ $admin->user->persona->sexo }}" data-materno="{{ $admin->user->persona->apellido_materno }}"
+                                                        data-telefono="{{ $admin->user->persona->telefono }}" data-fecha="{{ $admin->user->persona->fecha_nacimiento }}"
                                                         data-name="{{ $admin->name }}" data-correo="{{ $admin->email }}"
-                                                        data-foto="{{ $admin->profile_photo_path }}" 
+                                                        data-foto="{{ $admin->user->profile_photo_path }}" 
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -168,15 +170,29 @@
                                         <h3 class="card-label">Staff Aprore Asignado:</h3>
                                     </div>
                                     <div class="card-toolbar">
-                                        <x-boton class="btn-primary" title="Crear Staff">
-                                            <x-slot name="svg">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
-                                                </g>
-                                            </x-slot>
-                                            {{ route('empresa.staff.create', $empresa) }}
-                                        </x-boton>
+                                        @can('havepermiso', 'Empresa.staff.create')
+                                            <x-boton class="btn-primary mr-3" title="Crear Staff">
+                                                <x-slot name="svg">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
+                                                    </g>
+                                                </x-slot>
+                                                {{ route('empresa.staff.create', $empresa) }}
+                                            </x-boton>
+                                        @endcan
+                                        @can('havepermiso', 'Empresa.staff.assign')
+                                            <x-boton class="btn-info mr-3" title="Asignar Staff">
+                                                <x-slot name="svg">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"/>
+                                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
+                                                        <path d="M12,11 C10.8954305,11 10,10.1045695 10,9 C10,7.8954305 10.8954305,7 12,7 C13.1045695,7 14,7.8954305 14,9 C14,10.1045695 13.1045695,11 12,11 Z M7.00036205,16.4995035 C7.21569918,13.5165724 9.36772908,12 11.9907452,12 C14.6506758,12 16.8360465,13.4332455 16.9988413,16.5 C17.0053266,16.6221713 16.9988413,17 16.5815,17 L7.4041679,17 C7.26484009,17 6.98863236,16.6619875 7.00036205,16.4995035 Z" fill="#000000" opacity="0.3"/>
+                                                    </g>
+                                                </x-slot>
+                                                {{ route('empresa.staff.assign', $empresa) }}
+                                            </x-boton>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -192,16 +208,16 @@
                                         <tbody>
                                             @foreach ($staffs as $staff)
                                                 <tr>
-                                                    <td>{{ $staff->persona->nombre }} {{ $staff->persona->apellido_paterno }}</td>
-                                                    <td>{{ $staff->email }}</td>
-                                                    <td>{{ $staff->persona->telefono }}</td>
+                                                    <td>{{ $staff->user->persona->nombre }} {{ $staff->user->persona->apellido_paterno }}</td>
+                                                    <td>{{ $staff->user->email }}</td>
+                                                    <td>{{ $staff->user->persona->telefono }}</td>
                                                     <td>
                                                         <a href="#" data-toggle="modal" data-target="#verPersona"
-                                                        data-nombre="{{ $staff->persona->nombre }}" data-paterno="{{ $staff->persona->apellido_paterno }}"
-                                                        data-sexo="{{ $staff->persona->sexo }}" data-materno="{{ $staff->persona->apellido_materno }}"
-                                                        data-telefono="{{ $staff->persona->telefono }}" data-fecha="{{ $staff->persona->fecha_nacimiento }}"
-                                                        data-name="{{ $staff->name }}" data-correo="{{ $staff->email }}"
-                                                        data-foto="{{ $staff->profile_photo_path }}" 
+                                                        data-nombre="{{ $staff->user->persona->nombre }}" data-paterno="{{ $staff->user->persona->apellido_paterno }}"
+                                                        data-sexo="{{ $staff->user->persona->sexo }}" data-materno="{{ $staff->user->persona->apellido_materno }}"
+                                                        data-telefono="{{ $staff->user->persona->telefono }}" data-fecha="{{ $staff->user->persona->fecha_nacimiento }}"
+                                                        data-name="{{ $staff->user->name }}" data-correo="{{ $staff->user->email }}"
+                                                        data-foto="{{ $staff->user->profile_photo_path }}" 
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -218,15 +234,17 @@
                                         <h3 class="card-label">Encargados:</h3>
                                     </div>
                                     <div class="card-toolbar">
-                                        <x-boton class="btn-primary" title="Crear Encargado">
-                                            <x-slot name="svg">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
-                                                </g>
-                                            </x-slot>
-                                            {{ route('empresa.encargado.create', $empresa) }}
-                                        </x-boton>
+                                        @can('havepermiso', 'Empresa.encargado.create')
+                                            <x-boton class="btn-primary" title="Crear Encargado">
+                                                <x-slot name="svg">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
+                                                    </g>
+                                                </x-slot>
+                                                {{ route('empresa.encargado.create', $empresa) }}
+                                            </x-boton>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -268,15 +286,17 @@
                                         <h3 class="card-label">Secretarias:</h3>
                                     </div>
                                     <div class="card-toolbar">
-                                        <x-boton class="btn-primary" title="Crear Secretaria">
-                                            <x-slot name="svg">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
-                                                    <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
-                                                </g>
-                                            </x-slot>
-                                            {{ route('empresa.secre.create', $empresa) }}
-                                        </x-boton>
+                                        @can('havepermiso', 'Empresa.secre.create')
+                                            <x-boton class="btn-primary" title="Crear Secretaria">
+                                                <x-slot name="svg">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1"/>
+                                                        <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
+                                                    </g>
+                                                </x-slot>
+                                                {{ route('empresa.secre.create', $empresa) }}
+                                            </x-boton>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="card-body">

@@ -13,6 +13,8 @@ use App\Models\EmpresaPriv;
 use App\Models\Role;
 use App\Models\Modulo;
 use App\Models\User;
+use App\Models\Staff;
+use App\Models\StaffPriv;
 
 
 class EmpresaController extends Controller
@@ -81,8 +83,8 @@ class EmpresaController extends Controller
         return view('empresas.show', [
             'empresa' => $empresa,
             'modulos' => Auth::user()->empresaPriv->modulos,
-            'admins'  =>Empresa::find($empresa->id)->staffs,
-            'staffs'  => Empresa::find($empresa->id)->staffs,
+            'admins'  => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '2'] ])->get(),
+            'staffs'  => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '3'] ])->get(),
             'encargados'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '4'] ])->get(),
             'secres'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '5'] ])->get()
         ]);

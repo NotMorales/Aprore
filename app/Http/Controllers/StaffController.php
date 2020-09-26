@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Empresa;
 use App\Models\Persona;
+use App\Models\Staff;
+use App\Models\User;
 use App\Http\Requests\EmpresaStaffRequests;
 
 class StaffController extends Controller
@@ -95,6 +97,61 @@ class StaffController extends Controller
         
         return redirect()->route('empresa.show', $empresa)
             ->with('success', "El elemento Staff fue creado correctamente.");
+    }
+
+    public function staffAssign(Empresa $empresa) {
+        Gate::authorize('havepermiso', 'Empresa.staff.assign');
+
+        $postulantes = Staff::where('empresa_id', '!=', $empresa->id)->groupBy('user_id')->get();
+
+        return view('staff.assign-empresa-staff', [
+            'empresa' => $empresa,
+            'postulantes' => $postulantes
+        ]);
+    }
+
+    public function staffAssignStore(Request $request) {
+        Gate::authorize('havepermiso', 'Empresa.staff.assign');
+        
+        $request = $request->validate([
+            'empresa' => 'required | numeric',
+            'usuario' => 'required | numeric',
+        ]);
+        
+        $empresa = Empresa::findOrFail( $request['empresa'] );
+        $usuario = User::findOrFail( $request['usuario'] );
+        $staffExist = Staff::where([ ['empresa_id', $empresa->id], ['user_id', $usuario->id] ])->first();
+
+        if ($staffExist) {
+            return redirect()->route('empresa.show', $empresa)
+                ->with('danger', "El usuario Staff ya se encuentra asignado a esta empresa.");
+        }
+
+        try {
+            DB::beginTransaction();
+                
+                $idStaff = DB::connection('mysql')->table('staffs')->insertGetID([
+                    'user_id'           => $usuario->id,
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 3
+                ]);
+                
+                DB::connection($empresa->data_base)->table('staffs')->insert([
+                    'id'                => $idStaff,
+                    'user_id'           => $usuario->id,
+                    'empresa_id'        => $empresa->id,
+                    'role_id'           => 3
+                ]);
+
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('empresa.show', $empresa)
+                ->with('danger', "El usuario Staff NO pudo asignarse correctamente. Comunicarse con TI de Aprore.");
+        }
+        
+        return redirect()->route('empresa.show', $empresa)
+            ->with('success', "El usuario Staff fue asignado correctamente.");
     }
 
     public function adminCreate(Empresa $empresa) {

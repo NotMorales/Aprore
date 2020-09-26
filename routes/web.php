@@ -9,9 +9,11 @@ use App\Http\Controllers\StaffController;
 // Auth::loginUsingId(2);
 
 Route::resource('empresa', EmpresaController::class);
-Route::resource('staff', StaffController::class);
+// Route::resource('staff', StaffController::class);
 Route::get('empresa/staff/create/{empresa}', [StaffController::class, 'staffCreate'])->name('empresa.staff.create');
 Route::post('empresa/staff/create/store/', [StaffController::class, 'staffStore'])->name('empresa.staff.store');
+Route::get('empresa/staff/assign/{empresa}', [StaffController::class, 'staffAssign'])->name('empresa.staff.assign');
+Route::post('empresa/staff/assign/store/', [StaffController::class, 'staffAssignStore'])->name('empresa.staff.assignStore');
 Route::get('empresa/admin/create/{empresa}', [StaffController::class, 'adminCreate'])->name('empresa.admin.create');
 Route::post('empresa/admin/create/store/', [StaffController::class, 'adminStore'])->name('empresa.admin.store');
 Route::get('empresa/encargado/create/{empresa}', [StaffController::class, 'encargadoCreate'])->name('empresa.encargado.create');
@@ -28,5 +30,5 @@ Route::get('/home', function () {
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('index');
 })->name('dashboard');
