@@ -102,6 +102,8 @@ class StaffController extends Controller
     public function staffAssign(Empresa $empresa) {
         Gate::authorize('havepermiso', 'Empresa.staff.assign');
 
+        //Tarea:
+        //Filtrar, No debe salir, si ya pertenece
         $postulantes = Staff::where('empresa_id', '!=', $empresa->id)->groupBy('user_id')->get();
 
         return view('staff.assign-empresa-staff', [

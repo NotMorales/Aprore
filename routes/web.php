@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PostulanteController;
+use App\Http\Controllers\PostulanteMasivoController;
 
 // Auth::loginUsingId(2);
 
@@ -20,6 +22,20 @@ Route::get('empresa/encargado/create/{empresa}', [StaffController::class, 'encar
 Route::post('empresa/encargado/create/store/', [StaffController::class, 'encargadoStore'])->name('empresa.encargado.store');
 Route::get('empresa/secre/create/{empresa}', [StaffController::class, 'secreCreate'])->name('empresa.secre.create');
 Route::post('empresa/secre/create/store/', [StaffController::class, 'secreStore'])->name('empresa.secre.store');
+Route::resource('postulante', PostulanteController::class);
+Route::resource('postulantemasivo', PostulanteMasivoController::class);
+Route::get('postulantemasivo/plantilla/descargar', [PostulanteMasivoController::class, 'descargar'])->name('postulantemasivo.plantilla');
+
+Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
+Route::post('postulante/informacion/create/store/', [PostulanteController::class, 'inforStore'])->name('informacion.store');
+Route::get('postulante/informacion/edit/{trabajador}', [PostulanteController::class, 'inforEdit'])->name('informacion.edit');
+Route::patch('postulante/informacion/update/{trabajador}', [PostulanteController::class, 'inforUpdate'])->name('informacion.update');
+Route::get('postulante/expediente/create/{trabajador}', [PostulanteController::class, 'expeCreate'])->name('expediente.create');
+Route::post('postulante/expediente/create/store/', [PostulanteController::class, 'expeStore'])->name('expediente.store');
+Route::get('postulante/expediente/edit/{trabajador}', [PostulanteController::class, 'expeEdit'])->name('expediente.edit');
+Route::patch('postulante/expediente/update/{trabajador}', [PostulanteController::class, 'expeUpdate'])->name('expediente.update');
+Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
+
 
 
 

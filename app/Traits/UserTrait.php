@@ -16,8 +16,7 @@ trait UserTrait
         return $this->hasOne('App\Models\EmpresaPriv', 'id', 'empresa_id');
     }
 
-    public function persona()
-    {
+    public function persona() {
         return $this->belongsTo('App\Models\Persona');
     }
 

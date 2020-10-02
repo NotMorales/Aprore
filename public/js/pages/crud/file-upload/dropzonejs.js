@@ -41,9 +41,9 @@ var KTDropzoneDemo = function () {
             url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
             paramName: "file", // The name that will be used to transfer the file
             maxFiles: 10,
-            maxFilesize: 10, // MB
+            maxFilesize: 20, // MB
             addRemoveLinks: true,
-            acceptedFiles: "image/*,application/pdf,.psd",
+            acceptedFiles: "application/pdf,.zip,.rar",
             accept: function(file, done) {
                 if (file.name == "justinbieber.jpg") {
                     done("Naha, you don't.");

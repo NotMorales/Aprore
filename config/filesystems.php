@@ -55,6 +55,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'expediente' => [
+            'driver' => 'local',
+            'root' => storage_path('app/expediente'),
+            'url' => env('APP_URL').'/storage/app/expediente',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -80,6 +87,6 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('expediente') => storage_path('app/expediente'),
     ],
-
 ];
