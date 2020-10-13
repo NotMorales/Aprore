@@ -99,6 +99,11 @@
                             <input type="tel" class="form-control @error('nss') is-invalid @enderror" value="{{ old('nss') }}" id="nss" name="nss" placeholder="0155745512" />
                         </div>
 
+                        <div class="form-group">
+                            <label for="clabe_bancaria">Clabe Interbancaria:</label>
+                            <input type="tel" class="form-control @error('clabe_bancaria') is-invalid @enderror" value="{{ old('clabe_bancaria') }}" id="clabe_bancaria" name="clabe_bancaria" placeholder="15769516" />
+                        </div>
+
                         <p class="font-size-h5">Dirección: </p>
 
                         <div class="row">

@@ -36,14 +36,16 @@ INSERT INTO `users` (`id`, `persona_id`, `role_id`, `empresa_id`, `name`, `email
 --
 
 INSERT INTO `modulos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES 
-(1, 'Registro de Clientes', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(1, 'Registro de Clientes', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(2, 'Registro de Nomina', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
 
 --
 -- Volcado de datos para la tabla `modulo_user`
 --
 
 INSERT INTO `empresa_modulo` (`id`, `empresa_id`, `modulo_id`, `created_at`, `updated_at`, `deleted_at`) VALUES 
-(1, '1', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(1, '1', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(2, '1', '2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
 
 --
 -- Volcado de datos para la tabla `permisos`
@@ -146,4 +148,6 @@ INSERT INTO `permiso_role` (`id`, `permiso_id`, `role_id`, `created_at`, `update
 (45, 35, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (46, 36, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (47, 36, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
-(48, 37, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
+(48, 37, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(49, 37, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(50, 41, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);

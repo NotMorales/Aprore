@@ -4,7 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Imports\PostulanteImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use App\Models\Empresa;
 
 class PostulanteMasivoController extends Controller {
     public function index() {
@@ -16,7 +24,145 @@ class PostulanteMasivoController extends Controller {
     }
  
     public function store(Request $request) {
-        //
+        $fileName = time().'_Expediente_'.$request->file->getClientOriginalName();
+        $filePath = $request->file('file');
+
+        Storage::disk('masivo')->put($fileName, File::get($filePath));
+        $array = Excel::toArray(new PostulanteImport, $filePath);
+
+        return view('masivo.create', [
+            'array'     => $array[0],
+            'file'      => $fileName,
+        ]);
+    }
+    
+    public function save(Request $request) {
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        try {
+            $fileName = $request->file;
+            $array = Excel::toArray(new PostulanteImport, $fileName, 'masivo');
+            DB::beginTransaction();
+                foreach ($array[0] as $key => $value) {
+                    if($key == 0){
+                        continue;
+                    }
+                    if($value[0] == null && $value[1] == null && $value[1] == null){
+                        continue;
+                    }
+                        // for ($i=0; $i < 15; $i++) { 
+                        //     if($value[$i] == null){
+                        //         DB::rollBack();
+                        //         return redirect()->route('postulantemasivo.index')
+                        //             ->with('danger', "No deben ir campos vacios");
+                        //     }
+                        // }
+
+                    $fechaNacimiento = new \Carbon\Carbon('01-01-1900');
+                    $fechaAlta = new \Carbon\Carbon('01-01-1900');
+                    $request->merge([
+                        'nombre'            => $value[0],
+                        'apellido_paterno'  => $value[1],
+                        'apellido_materno'  => $value[2],
+                        'sexo'              => $value[3],
+                        'telefono'          => $value[4],
+                        'fecha_nacimiento'  => $fechaNacimiento->addDays($value[5]-2)->format('Y-m-d'),
+                        'email'             => $value[6],
+                        'curp'              => $value[7],
+                        'rfc'               => $value[8],
+                        'nss'               => $value[9],
+                        'calle'             => $value[10],
+                        'colonia'           => $value[11],
+                        'ciudad'            => $value[12],
+                        'codigo_postal'     => $value[13],
+                        'fecha_alta'        => $fechaAlta->addDays($value[14]-2)->format('Y-m-d'),
+                        'clabe_bancaria'    => $value[15]
+                    ]);
+                    $validator = Validator::make($request->all(), [
+                        'nombre'            => 'required | String | max:255',
+                        'apellido_paterno'  => 'required | String | max:255',
+                        'apellido_materno'  => 'required | String | max:255',
+                        'sexo'              => 'required | String | max:9',
+                        'telefono'          => 'required | Numeric',
+                        'fecha_nacimiento'  => 'required | Date',
+                        'email'             => 'required | Email | max:255 | unique:users,email',
+                        'curp'              => 'required | String | max:18',
+                        'rfc'               => 'required | String | max:15',
+                        'nss'               => 'required | Numeric',
+                        'calle'             => 'required | String | max:255',
+                        'colonia'           => 'required | String | max:255',
+                        'ciudad'            => 'required | String | max:255',
+                        'codigo_postal'     => 'required | Numeric',
+                        'fecha_alta'        => 'required | Date',
+                        'clabe_bancaria'    => ''
+                    ]);
+                    if ($validator->fails()) {
+                        DB::rollBack();
+                        return redirect()->route('postulantemasivo.index')
+                            ->withErrors($validator)
+                            ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1]);
+                    }
+                    $idPersona = DB::connection('mysql')->table('personas')->insertGetID([
+                        'nombre'            => $request['nombre'],
+                        'apellido_paterno'  => $request['apellido_paterno'],
+                        'apellido_materno'  => $request['apellido_materno'],
+                        'sexo'              => $request['sexo'],
+                        'telefono'          => $request['telefono'],
+                        'fecha_nacimiento'  => $request['fecha_nacimiento']
+                    ]);
+                    
+                    DB::connection($empresa->data_base)->table('personas')->insert([
+                        'id'                => $idPersona,
+                        'nombre'            => $request['nombre'],
+                        'apellido_paterno'  => $request['apellido_paterno'],
+                        'apellido_materno'  => $request['apellido_materno'],
+                        'sexo'              => $request['sexo'],
+                        'telefono'          => $request['telefono'],
+                        'fecha_nacimiento'  => $request['fecha_nacimiento']
+                    ]);
+    
+                    $idUser = DB::connection('mysql')->table('users')->insertGetID([
+                        'role_id'           => 6,
+                        'persona_id'        => $idPersona,
+                        'empresa_id'        => $empresa->id,
+                        'name'              => $request['nombre'],
+                        'email'             => $request['email'],
+                        'password'          => Hash::make( 'Aprore-2020' )
+                    ]);
+    
+                    DB::connection($empresa->data_base)->table('users')->insert([
+                        'id'                => $idUser,
+                        'role_id'           => 6,
+                        'persona_id'        => $idPersona,
+                        'empresa_id'        => $empresa->id,
+                        'name'              => $request['nombre'],
+                        'email'             => $request['email'],
+                        'password'          => Hash::make( 'Aprore-2020' )
+                    ]);
+    
+                    $idTrabajador = DB::connection($empresa->data_base)->table('trabajadores')->insertGetID([
+                        'user_id'           => $idUser,
+                        'curp'              => $request['curp'],
+                        'rfc'               => $request['rfc'],
+                        'nss'               => $request['nss'],
+                        'calle'             => $request['calle'],
+                        'colonia'           => $request['colonia'],
+                        'ciudad'            => $request['ciudad'],
+                        'codigo_postal'     => $request['codigo_postal'],
+                        'fecha_alta'        => $request['fecha_alta'],
+                        'estado'            => 1,
+                        'visto_bueno'       => 0,
+                        'clabe_bancaria'    => $request['clabe_bancaria']
+                    ]);
+                }
+            DB::commit();
+            return redirect()->route('postulante.index')
+                ->with('success', "La importacion masiva fue todo un exito."); 
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('postulantemasivo.index')
+                ->with('danger', "La importacion masiva fallo. Comunicarse con TI de Aprore.");
+        }
+               
     }
  
     public function show($id) {

@@ -21,7 +21,8 @@ class InformacionRequests extends FormRequest {
             'codigo_postal'     => 'required | Numeric',
             'empresa'           => 'required | Numeric',
             'postulante'        => 'required | Numeric',
-            'fecha_alta'        => 'required | Date'
+            'fecha_alta'        => 'required | Date',
+            'clabe_bancaria'    => ''
         ];
     }
 }

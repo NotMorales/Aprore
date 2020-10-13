@@ -28,7 +28,9 @@
             <div class="d-flex align-items-center">
                 <!--begin::Actions-->
                 @foreach ($acciones as $accion)
-                    <a href="{{ route($accion['href']) }}" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">{{ $accion['nombre'] }}</a>
+                    @can('havepermiso', $accion['permiso'])
+                        <a href="{{ route($accion['href']) }}" class="btn btn-light-primary font-weight-bolder btn-sm mr-5">{{ $accion['nombre'] }}</a>
+                    @endcan
                 @endforeach
                 <!--end::Actions-->
             </div>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ValidacionSolicitada;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +20,8 @@ use App\Models\Persona;
 use App\Models\User;
 use App\Models\UserPriv;
 use App\Models\Trabajador;
+use App\Models\Staff;
+use Carbon\Carbon;
 
 class PostulanteController extends Controller {
     public function __construct() {
@@ -134,7 +138,8 @@ class PostulanteController extends Controller {
                     'ciudad'            => $request['ciudad'],
                     'codigo_postal'     => $request['codigo_postal'],
                     'fecha_alta'        => $request['fecha_alta'],
-                    'estado'            => 1
+                    'estado'            => 1,
+                    'clabe_bancaria'    => $request['clabe_bancaria']
                 ]);
 
             DB::commit();
@@ -291,7 +296,8 @@ class PostulanteController extends Controller {
             'colonia'           => 'required | String | max:255',
             'ciudad'            => 'required | String | max:255',
             'codigo_postal'     => 'required | Numeric',
-            'fecha_alta'        => 'required | Date'
+            'fecha_alta'        => 'required | Date',
+            'clabe_bancaria'    => ''
         ]);
         
         if ($postulante->visto_bueno != 0) {
@@ -311,6 +317,7 @@ class PostulanteController extends Controller {
                     'ciudad'            => $request['ciudad'],
                     'codigo_postal'     => $request['codigo_postal'],
                     'fecha_alta'        => $request['fecha_alta'],
+                    'clabe_bancaria'    => $request['clabe_bancaria']
                 ]);
 
             DB::commit();
@@ -356,6 +363,7 @@ class PostulanteController extends Controller {
                 }
             DB::commit();
         } catch (\Throwable $th) {
+            DB::rollBack();
             return redirect()->route('postulante.index')
                 ->with('danger', "El Expediente del Trabajador Fallo. Comunicarse con TI de Aprore.");
         }
@@ -370,7 +378,156 @@ class PostulanteController extends Controller {
         return $file;
     }
 
-    public function destroy($id) {
-        //
+    public function destroy(Request $request) {
+        Gate::authorize('havepermiso', 'Trabajador.destroy');
+        $postulante = Trabajador::findOrFail( $request->trabajador );
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        $delete_at = Carbon::now()->toDateTimeString();
+        try {
+            DB::beginTransaction();
+                DB::connection('mysql')->table('personas')->where('id', $postulante->user->persona->id)->update([
+                    'deleted_at'    => $delete_at
+                ]);
+                DB::connection($empresa->data_base)->table('personas')->where('id', $postulante->user->persona->id)->update([
+                    'deleted_at'    => $delete_at
+                ]);
+                DB::connection('mysql')->table('users')->where('id', $postulante->user_id)->update([
+                    'deleted_at'    => $delete_at
+                ]);
+                DB::connection($empresa->data_base)->table('users')->where('id', $postulante->user_id)->update([
+                    'deleted_at'    => $delete_at
+                ]);
+                DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
+                    'deleted_at'    => $delete_at
+                ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('postulante.index')
+                ->with('danger', "El Postulante NO se pudo eliminar. Comunicarse con TI de Aprore.");
+        }
+        return redirect()->route('postulante.index')
+            ->with('success', "El Postulante fue eliminado correctamente.");
+    }
+    public function validar($id) {
+        Gate::authorize('havepermiso', 'Trabajador.show');
+        $postulante = Trabajador::findOrFail( $id );     
+        // dd($postulante->user->empresa->nombre);
+        return view('postulantes.validar', [
+            'postulante' => $postulante
+        ]);
+    }
+    public function validarSoli(Request $request) {
+        $postulante = Trabajador::findOrFail( $request->trabajador );
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        // return  new ValidacionSolicitada($postulante);
+        try {
+            DB::beginTransaction();
+                DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
+                    'visto_bueno'   => 1,
+                    'estado'        => 3, 
+                ]);
+                
+                //Enviar Correo
+                    Mail::to('daniel@gmail.com')->queue(new ValidacionSolicitada($postulante)); 
+                // $staffs = Staff::where('empresa_id', $empresa->id)-get();
+                // foreach($staffs as $staff){
+                // }
+                
+                // return  new ValidacionSolicitada($postulante);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('postulante.index')
+                ->with('danger', "No fue posible solicitar la validación. Comunicarse con TI de Aprore.");
+        }
+        return redirect()->route('postulante.index')
+            ->with('success', "La validacion fue solicitada correctamente.");
+    }
+    public function solicitudes() {
+        $asignaciones = Trabajador::where('visto_bueno', 1)->count();
+        return $asignaciones;
+    }
+    public function indexSoli() {
+        Gate::authorize('havepermiso', 'Trabajador.validar.aprobar');
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        $postulantes = Trabajador::where('visto_bueno', 1)->get();
+        return view('postulantes.solicitud-index', [
+            'postulantes' => $postulantes
+        ]);
+    }
+    public function aprobarSoli($id) {
+        Gate::authorize('havepermiso', 'Trabajador.show');
+        $postulante = Trabajador::findOrFail( $id );     
+        return view('postulantes.solicitud-show', [
+            'postulante' => $postulante
+        ]);
+    }
+
+    public function solicitudAceptar(Request $request) {
+        Gate::authorize('havepermiso', 'Trabajador.show');
+        
+        $request->validate([
+            'trabajador'    => 'required | Numeric',
+        ]);
+
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        $postulante = Trabajador::findOrFail( $request->trabajador );  
+          
+        // return  new ValidacionSolicitada($postulante);
+        try {
+            DB::beginTransaction();
+                DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
+                    'visto_bueno'   => 2,
+                    'estado'        => 4, 
+                ]);
+                
+                //Enviar Correo
+                // $staffs = Staff::where('empresa_id', $empresa->id)-get();
+                // foreach($staffs as $staff){
+                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante)); 
+                // }
+                
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('solicitudes.index')
+                ->with('danger', "No fue posible aceptar la postulación. Comunicarse con TI de Aprore.");
+        }
+        return redirect()->route('solicitudes.index')
+            ->with('success', "La aceptacion fue registrada correctamente.");
+    }
+
+    public function solicitudRechazo(Request $request) {
+        Gate::authorize('havepermiso', 'Trabajador.show');
+        $request->validate([
+            'trabajador'    => 'required | Numeric',
+            'motivoRechazo'   => 'required | max:10000 | min:1'
+        ]);
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+        $postulante = Trabajador::findOrFail( $request->trabajador );    
+        // return  new ValidacionSolicitada($postulante);
+        try {
+            DB::beginTransaction();
+                DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
+                    'visto_bueno'   => 0,
+                    'estado'        => 5, 
+                    'descripcion'   => $request->motivoRechazo
+                ]);
+                
+                //Enviar Correo
+                // $staffs = Staff::where('empresa_id', $empresa->id)-get();
+                // foreach($staffs as $staff){
+                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante)); 
+                // }
+                
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('solicitudes.index')
+                ->with('danger', "No fue posible Rechazar la postulación. Comunicarse con TI de Aprore.");
+        }
+        return redirect()->route('solicitudes.index')
+            ->with('success', "El rechazo fue registrado correctamente.");
     }
 }

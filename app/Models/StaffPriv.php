@@ -18,7 +18,8 @@ class StaffPriv extends Model
     protected $primaryKey = 'id';
     protected $fillable = [];
 
-    public function __construct() {
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $user = User::find( Auth::user()->id );
         $this->connection = $user->empresa->data_base;
     }

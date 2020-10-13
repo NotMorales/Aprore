@@ -2,7 +2,7 @@
 @section('content')
     <x-subheader title="Empresas" 
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Inicio'], ['href'=>'empresa.create', 'nombre'=>'Crear'] ]"
-        :acciones="[ ['href'=>'empresa.index', 'nombre'=>'Ver Empresas'] ]">
+        :acciones="[ ['href'=>'empresa.index', 'nombre'=>'Ver Empresas', 'permiso'=>'empresa.index'] ]">
     </x-subheader>
 
     <!--begin::Entry-->

@@ -9,6 +9,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\UserTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use UserTrait;
+    use SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -38,6 +40,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    
+    protected $dates = ['deleted_at'];
 
     
 }

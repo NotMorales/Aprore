@@ -17,7 +17,7 @@
                         {{ $postulante->user->persona->nombre }} {{ $postulante->user->persona->apellido_paterno }} {{ $postulante->user->persona->apellido_materno }}
                     </div>
                     <div class="card-toolbar">
-                        <x-boton class="btn-primary" title="Imprimir">
+                        {{-- <x-boton class="btn-primary" title="Imprimir">
                             <x-slot name="svg">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                     <rect x="0" y="0" width="24" height="24"/>
@@ -26,46 +26,62 @@
                                 </g>
                             </x-slot>
                             {{ route('empresa.index') }}
-                        </x-boton>
+                        </x-boton> --}}
                     </div>
                 </div>
                 
                 <div class="card-body">
+                    @if ($postulante->estado == 5)
+                        <div class="alert alert-custom alert-danger fade show mb-5" role="alert">
+                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                            <div class="alert-text">{{ $postulante->descripcion }}</div>
+                            <div class="alert-close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="form-group col-lg-6">
-                            <label for="sexo">Sexo </label>
-                            <input type="tel" class="form-control @error('telefono') is-invalid @enderror" value="{{ $postulante->user->persona->sexo }}" id="telefono" name="telefono" placeholder="9211479791" />
+                            <label>Sexo </label>
+                            <input type="tel" class="form-control" value="{{ $postulante->user->persona->sexo }}" readonly="readonly"/>
                             </select>
                         </div>
                         
                         <div class="form-group col-lg-6">
-                            <label for="telefono">Telefono:</label>
-                            <input type="tel" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono', $postulante->user->persona->telefono) }}" id="telefono" name="telefono" placeholder="9211479791" />
+                            <label>Telefono:</label>
+                            <input type="tel" class="form-control" value="{{ $postulante->user->persona->telefono }}" readonly="readonly"/>
                         </div>
     
                         <div class="form-group col-lg-6">
-                            <label for="kt_datepicker_1">Fecha de Nacimiento:</label>
-                            <input type="text" class="form-control @error('fecha_nacimiento') is-invalid @enderror" value="{{ old('fecha_nacimiento',  $postulante->user->persona->fecha_nacimiento) }}" id="kt_datepicker_1" name="fecha_nacimiento" readonly="readonly" placeholder="24/10/1999" />
+                            <label>Fecha de Nacimiento:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->user->persona->fecha_nacimiento }}" readonly="readonly"/>
                         </div>
     
                         <div class="form-group col-lg-6">
-                            <label for="email">Correo Electronico:</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email',  $postulante->user->email) }}" id="email" name="email" placeholder="morales.lamv@gmail.com" />
+                            <label>Correo Electronico:</label>
+                            <input type="email" class="form-control" value="{{ $postulante->user->email }}" readonly="readonly"/>
                         </div>
     
                         <div class="form-group col-lg-6">
-                            <label for="curp">Curp:</label>
-                            <input type="text" class="form-control @error('curp') is-invalid @enderror" value="{{ old('curp', $postulante->curp) }}" id="curp" name="curp" placeholder="MOVL991024GHXDSC06" />
+                            <label>Curp:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->curp }}" readonly="readonly"/>
                         </div>
     
                         <div class="form-group col-lg-6">
-                            <label for="rfc">RFC:</label>
-                            <input type="text" class="form-control @error('rfc') is-invalid @enderror" value="{{ old('rfc', $postulante->rfc) }}" id="rfc" name="rfc" placeholder="MOVL991024CD5" />
+                            <label>RFC:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->rfc }}" readonly="readonly"/>
                         </div>
     
                         <div class="form-group col-lg-6">
-                            <label for="nss">Numero de Seguro Social:</label>
-                            <input type="tel" class="form-control @error('nss') is-invalid @enderror" value="{{ old('nss', $postulante->nss) }}" id="nss" name="nss" placeholder="0155745512" />
+                            <label>Numero de Seguro Social:</label>
+                            <input type="tel" class="form-control" value="{{ $postulante->nss }}" readonly="readonly"/>
+                        </div>
+                        
+                        <div class="form-group col-lg-6">
+                            <label>Clabe Interbancaria:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->clabe_bancaria }}" readonly="readonly"/>
                         </div>
                     </div>
 
@@ -73,33 +89,39 @@
 
                     <div class="row">
                         <div class="form-group col-lg-6">
-                            <label for="calle">Calle y Numero:</label>
-                            <input type="text" class="form-control @error('calle') is-invalid @enderror" value="{{ old('calle', $postulante->calle) }}" id="calle" name="calle" placeholder="Av. Universitaria #105" />
+                            <label>Calle y Numero:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->calle }}" readonly="readonly"/>
                         </div>
                         
                         <div class="form-group col-lg-6">
-                            <label for="colonia">Colonia:</label>
-                            <input type="text" class="form-control @error('colonia') is-invalid @enderror" value="{{ old('colonia', $postulante->colonia) }}" id="colonia" name="colonia" placeholder="Centro" />
+                            <label>Colonia:</label>
+                            <input type="text" class="form-control" value="{{ $postulante->colonia }}" readonly="readonly"/>
                         </div>
 
                         <div class="form-group col-lg-6">
-                            <label for="ciudad">Ciudad:</label>
-                            <input type="text" class="form-control @error('ciudad') is-invalid @enderror" value="{{ old('ciudad', $postulante->ciudad) }}" id="ciudad" name="ciudad" placeholder="Coatzacoalcos" />
+                            <label>Ciudad:</label>
+                            <input type="text" class="form-control " value="{{ $postulante->ciudad }}" readonly="readonly"/>
                         </div>
                         
                         <div class="form-group col-lg-6">
-                            <label for="codigo_postal">Codigo Postal:</label>
-                            <input type="tel" class="form-control @error('codigo_postal') is-invalid @enderror" value="{{ old('codigo_postal', $postulante->codigo_postal) }}" id="codigo_postal" name="codigo_postal" placeholder="96536" />
+                            <label>Codigo Postal:</label>
+                            <input type="tel" class="form-control" value="{{ $postulante->codigo_postal }}" readonly="readonly"/>
                         </div>
-
-                        @if ( $postulante->expediente_path == null )
-                            Sin expediente
-                        @else
-                            con expediente
-                        @endif
+                    </div>
+                    
+                    @if ( $postulante->expediente_path == null )
+                        <div class="alert alert-custom alert-light-danger fade show mb-5" role="alert">
+                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                            <div class="alert-text">¡Sin Expediente!</div>
+                        </div>
+                    @else
+                        <div>
+                            <iframe src="{{'https://' . Storage::disk('expediente')->url($postulante->expediente_path)}}" width="100%" height="400" frameborder="0"></iframe>
+                        </div>
+                    @endif
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-2">Guardar</button>
+                    <a href="{{ route('postulante.index') }}" class="btn btn-primary mr-2">Volver</a>
                 </div>
             </div>
             <!--end::Card-->
@@ -110,14 +132,9 @@
 @endsection
 
 @section('head') 
-    <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @section('script')
-<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-    <script>
-        $("#kt_datepicker_1").datepicker({ 
-            format: 'yyyy-mm-dd'
-        });
-    </script>
+
 @endsection

@@ -2,7 +2,7 @@
 @section('content')
     <x-subheader title="Importar Personal Masivamente" 
         :subheaders="[ ['href'=>'postulante.index', 'nombre'=>'Inicio'] ]"
-        :acciones="[ ['href'=>'postulante.create', 'nombre'=>'Crear Postulante'] ]">
+        :acciones="[ ['href'=>'postulante.create', 'nombre'=>'Crear Postulante', 'permiso'=>'Trabajador.create'] ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('postulantemasivo.create') }}" autocomplete="off" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('postulantemasivo.store') }}" autocomplete="off" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         @if ( $errors->any() )
@@ -43,7 +43,7 @@
                             <label>Archivo Plantilla:</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile" name="expediente" accept=".pdf,.zip,.rar"/>
+                                <input type="file" class="custom-file-input" id="customFile" name="file" accept=".xlsx"/>
                                 <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
                             </div>
                         </div>

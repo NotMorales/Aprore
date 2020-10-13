@@ -18,7 +18,8 @@ class EmpresaPriv extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['nombre', 'direccion', 'correo', 'contacto', 'telefono', 'rfc', 'data_base', 'logo_path', 'created_at', 'updated_at', 'deleted_at'];
 
-    public function __construct() {
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $user = User::find( Auth::user()->id );
         $this->connection = $user->empresa->data_base;
     }

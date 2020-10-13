@@ -2,7 +2,7 @@
 @section('content')
     <x-subheader title="Postulante" 
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Registro'] ]"
-        :acciones="[ ['href'=>'postulantemasivo.index', 'nombre'=>'Importar Masivamente'] ]">
+        :acciones="[ ['href'=>'postulantemasivo.index', 'nombre'=>'Importar Masivamente', 'permiso'=>'Trabajador.create'] ]">
     </x-subheader>
 
     <!--begin::Entry-->

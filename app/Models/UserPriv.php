@@ -18,13 +18,18 @@ class UserPriv extends Model
     protected $primaryKey = 'id';
     protected $fillable = [];
 
-    public function __construct() {
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $user = User::find( Auth::user()->id );
         $this->connection = $user->empresa->data_base;
     }
 
     public function persona() {
-        return $this->belongsTo('App\Models\Persona');
+        return $this->belongsTo('App\Models\Persona', 'id');
+    }
+
+    public function empresa() {
+        return $this->hasOne('App\Models\EmpresaPriv', 'id', 'empresa_id');
     }
 
     public function trabajador() {
