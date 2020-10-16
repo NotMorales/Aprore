@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Empresas" 
+    <x-subheader title="Empresas"
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Inicio'], ['href'=>'empresa.index', 'nombre'=>'Crear'], ['href'=>'empresa.index', 'nombre'=>'Admin'] ]"
         :acciones="[]">
     </x-subheader>
@@ -14,9 +14,8 @@
                     <h3 class="card-title">Formulario de Registro Usuario Secretaria</h3>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('empresa.secre.store') }}" autocomplete="off">
+                <form method="POST" action="{{ route('empresa.secretaria.store', $empresa) }}" autocomplete="off">
                     @csrf
-                    <input type="hidden" name="empresa" value="{{$empresa->id}}">
                     <div class="card-body">
                         @if ( $errors->any() )
                             <x-errors></x-errors>
@@ -43,7 +42,7 @@
                                 <option value="Femenino" {{ old('sexo') == $persona->sexo ? ' selected' : ''}}>Mujer</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="telefono">Telefono: <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono', $persona->telefono) }}" id="telefono" name="telefono" placeholder="9211479791" />
@@ -86,7 +85,7 @@
     </div>
     <!--end::Entry-->
 @endsection
-    
+
 @section('head')
 
 @endsection
@@ -94,7 +93,7 @@
 @section('script')
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $("#kt_datepicker_1").datepicker({ 
+        $("#kt_datepicker_1").datepicker({
             format: 'yyyy-mm-dd'
         });
         $(document).ready(function() {

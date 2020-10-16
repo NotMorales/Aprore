@@ -2,27 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\PostulanteMasivoController;
+use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\UserStaffController;
+use App\Http\Controllers\UserEncargadoController;
+use App\Http\Controllers\UserSecretariaController;
 
 // Auth::loginUsingId(2);
 
-Route::resource('empresa', EmpresaController::class);
-// Route::resource('staff', StaffController::class);
-Route::get('empresa/staff/create/{empresa}', [StaffController::class, 'staffCreate'])->name('empresa.staff.create');
-Route::post('empresa/staff/create/store/', [StaffController::class, 'staffStore'])->name('empresa.staff.store');
-Route::get('empresa/staff/assign/{empresa}', [StaffController::class, 'staffAssign'])->name('empresa.staff.assign');
-Route::post('empresa/staff/assign/store/', [StaffController::class, 'staffAssignStore'])->name('empresa.staff.assignStore');
-Route::get('empresa/admin/create/{empresa}', [StaffController::class, 'adminCreate'])->name('empresa.admin.create');
-Route::post('empresa/admin/create/store/', [StaffController::class, 'adminStore'])->name('empresa.admin.store');
-Route::get('empresa/encargado/create/{empresa}', [StaffController::class, 'encargadoCreate'])->name('empresa.encargado.create');
-Route::post('empresa/encargado/create/store/', [StaffController::class, 'encargadoStore'])->name('empresa.encargado.store');
-Route::get('empresa/secre/create/{empresa}', [StaffController::class, 'secreCreate'])->name('empresa.secre.create');
-Route::post('empresa/secre/create/store/', [StaffController::class, 'secreStore'])->name('empresa.secre.store');
+Route::resource('empresa', EmpresaController::class)->except(['edit', 'update', 'destroy']);
+Route::resource('empresa.admin', UserAdminController::class)->only(['create', 'store']);
+Route::resource('empresa.staff', UserStaffController::class)->only(['create', 'store']);
+Route::get('empresa/{empresa}/staff/assign', [StaffController::class, 'assign'])->name('empresa.staff.assign');
+Route::post('empresa/{empresa}/staff/assign', [StaffController::class, 'assignStore'])->name('empresa.staff.assign.store');
+Route::resource('empresa.encargado', UserEncargadoController::class)->only(['create', 'store']);
+Route::resource('empresa.secretaria', UserSecretariaController::class)->only(['create', 'store']);
+
 Route::resource('postulante', PostulanteController::class);
+
 Route::post('postulante/delete/destroy', [PostulanteController::class, 'destroy'])->name('postulante.delete');
 Route::resource('postulantemasivo', PostulanteMasivoController::class);
 Route::post('postulante/save/', [PostulanteMasivoController::class, 'save'])->name('postulantemasivo.save');

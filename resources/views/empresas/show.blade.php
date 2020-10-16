@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Empresa" 
+    <x-subheader title="Empresa"
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Inicio'], ['href'=>'empresa.index', 'nombre'=>'Ver'] ]"
         :acciones="[ ['href'=>'empresa.index', 'nombre'=>'Ver Empresas', 'permiso'=>'empresa.index'] ]">
     </x-subheader>
@@ -66,7 +66,7 @@
                             <a class="nav-link" data-toggle="tab" href="#menu3">Secretarias</a>
                         </li>
                     </ul>
-                    
+
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div id="home" class="container tab-pane active">
@@ -153,7 +153,7 @@
                                                         data-sexo="{{ $admin->user->persona->sexo }}" data-materno="{{ $admin->user->persona->apellido_materno }}"
                                                         data-telefono="{{ $admin->user->persona->telefono }}" data-fecha="{{ $admin->user->persona->fecha_nacimiento }}"
                                                         data-name="{{ $admin->name }}" data-correo="{{ $admin->email }}"
-                                                        data-foto="{{ $admin->user->profile_photo_path }}" 
+                                                        data-foto="{{ $admin->user->profile_photo_path }}"
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -161,7 +161,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                         <div id="menu1" class="container tab-pane active"><br>
                             <div class="card card-custom gutter-b">
@@ -217,7 +217,7 @@
                                                         data-sexo="{{ $staff->user->persona->sexo }}" data-materno="{{ $staff->user->persona->apellido_materno }}"
                                                         data-telefono="{{ $staff->user->persona->telefono }}" data-fecha="{{ $staff->user->persona->fecha_nacimiento }}"
                                                         data-name="{{ $staff->user->name }}" data-correo="{{ $staff->user->email }}"
-                                                        data-foto="{{ $staff->user->profile_photo_path }}" 
+                                                        data-foto="{{ $staff->user->profile_photo_path }}"
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -225,7 +225,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div id="menu2" class="container tab-pane active"><br>
                             <div class="card card-custom gutter-b">
@@ -269,7 +269,7 @@
                                                         data-sexo="{{ $encargado->persona->sexo }}" data-materno="{{ $encargado->persona->apellido_materno }}"
                                                         data-telefono="{{ $encargado->persona->telefono }}" data-fecha="{{ $encargado->persona->fecha_nacimiento }}"
                                                         data-name="{{ $encargado->name }}" data-correo="{{ $encargado->email }}"
-                                                        data-foto="{{ $encargado->profile_photo_path }}" 
+                                                        data-foto="{{ $encargado->profile_photo_path }}"
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -277,7 +277,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                         <div id="menu3" class="container tab-pane active"><br>
                             <div class="card card-custom gutter-b">
@@ -294,7 +294,7 @@
                                                         <rect fill="#000000" opacity="0.3" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) " x="4" y="11" width="16" height="2" rx="1"/>
                                                     </g>
                                                 </x-slot>
-                                                {{ route('empresa.secre.create', $empresa) }}
+                                                {{ route('empresa.secretaria.create', $empresa) }}
                                             </x-boton>
                                         @endcan
                                     </div>
@@ -321,7 +321,7 @@
                                                         data-sexo="{{ $secre->persona->sexo }}" data-materno="{{ $secre->persona->apellido_materno }}"
                                                         data-telefono="{{ $secre->persona->telefono }}" data-fecha="{{ $secre->persona->fecha_nacimiento }}"
                                                         data-name="{{ $secre->name }}" data-correo="{{ $secre->email }}"
-                                                        data-foto="{{ $secre->profile_photo_path }}" 
+                                                        data-foto="{{ $secre->profile_photo_path }}"
                                                         >Ver</a>
                                                     </td>
                                                 </tr>
@@ -329,7 +329,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>      
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -338,9 +338,9 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-    
+
 @endsection
-    
+
 @section('head')
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -362,9 +362,9 @@
             modal.find('.modal-body input[name=fecha]').val( data.data('fecha') );
             modal.find('.modal-body input[name=name]').val( data.data('name') );
             modal.find('.modal-body input[name=email]').val( data.data('correo') );
-            
+
         });
-        
+
         $(document).ready( function () {
             $('#myTable0').DataTable({
                 responsive: true

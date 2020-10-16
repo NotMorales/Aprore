@@ -13,16 +13,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\Empresa;
+use Carbon\Carbon;
 
 class PostulanteMasivoController extends Controller {
     public function index() {
         return view('masivo.index');
     }
- 
+
     public function create() {
         //
     }
- 
+
     public function store(Request $request) {
         $fileName = time().'_Expediente_'.$request->file->getClientOriginalName();
         $filePath = $request->file('file');
@@ -35,7 +36,7 @@ class PostulanteMasivoController extends Controller {
             'file'      => $fileName,
         ]);
     }
-    
+
     public function save(Request $request) {
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         try {
@@ -49,16 +50,9 @@ class PostulanteMasivoController extends Controller {
                     if($value[0] == null && $value[1] == null && $value[1] == null){
                         continue;
                     }
-                        // for ($i=0; $i < 15; $i++) { 
-                        //     if($value[$i] == null){
-                        //         DB::rollBack();
-                        //         return redirect()->route('postulantemasivo.index')
-                        //             ->with('danger', "No deben ir campos vacios");
-                        //     }
-                        // }
 
-                    $fechaNacimiento = new \Carbon\Carbon('01-01-1900');
-                    $fechaAlta = new \Carbon\Carbon('01-01-1900');
+                    $fechaNacimiento = new Carbon('01-01-1900');
+                    $fechaAlta = new Carbon('01-01-1900');
                     $request->merge([
                         'nombre'            => $value[0],
                         'apellido_paterno'  => $value[1],
@@ -85,9 +79,9 @@ class PostulanteMasivoController extends Controller {
                         'telefono'          => 'required | Numeric',
                         'fecha_nacimiento'  => 'required | Date',
                         'email'             => 'required | Email | max:255 | unique:users,email',
-                        'curp'              => 'required | String | max:18',
-                        'rfc'               => 'required | String | max:15',
-                        'nss'               => 'required | Numeric',
+                        'curp'              => 'required | String | max:18 | min:16 | unique:'. $empresa->data_base . '.trabajadores,curp',
+                        'rfc'               => 'required | String | max:13 | min:12 | unique:'. $empresa->data_base . '.trabajadores,rfc',
+                        'nss'               => 'required | Numeric | digits_between:10,11 | unique:'. $empresa->data_base . '.trabajadores,nss',
                         'calle'             => 'required | String | max:255',
                         'colonia'           => 'required | String | max:255',
                         'ciudad'            => 'required | String | max:255',
@@ -109,7 +103,7 @@ class PostulanteMasivoController extends Controller {
                         'telefono'          => $request['telefono'],
                         'fecha_nacimiento'  => $request['fecha_nacimiento']
                     ]);
-                    
+
                     DB::connection($empresa->data_base)->table('personas')->insert([
                         'id'                => $idPersona,
                         'nombre'            => $request['nombre'],
@@ -119,7 +113,7 @@ class PostulanteMasivoController extends Controller {
                         'telefono'          => $request['telefono'],
                         'fecha_nacimiento'  => $request['fecha_nacimiento']
                     ]);
-    
+
                     $idUser = DB::connection('mysql')->table('users')->insertGetID([
                         'role_id'           => 6,
                         'persona_id'        => $idPersona,
@@ -128,7 +122,7 @@ class PostulanteMasivoController extends Controller {
                         'email'             => $request['email'],
                         'password'          => Hash::make( 'Aprore-2020' )
                     ]);
-    
+
                     DB::connection($empresa->data_base)->table('users')->insert([
                         'id'                => $idUser,
                         'role_id'           => 6,
@@ -138,7 +132,7 @@ class PostulanteMasivoController extends Controller {
                         'email'             => $request['email'],
                         'password'          => Hash::make( 'Aprore-2020' )
                     ]);
-    
+
                     $idTrabajador = DB::connection($empresa->data_base)->table('trabajadores')->insertGetID([
                         'user_id'           => $idUser,
                         'curp'              => $request['curp'],
@@ -156,27 +150,27 @@ class PostulanteMasivoController extends Controller {
                 }
             DB::commit();
             return redirect()->route('postulante.index')
-                ->with('success', "La importacion masiva fue todo un exito."); 
+                ->with('success', "La importacion masiva fue todo un exito.");
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->route('postulantemasivo.index')
                 ->with('danger', "La importacion masiva fallo. Comunicarse con TI de Aprore.");
         }
-               
+
     }
- 
+
     public function show($id) {
         //
     }
- 
+
     public function edit($id) {
         //
     }
- 
+
     public function update(Request $request, $id) {
         //
     }
- 
+
     public function destroy($id) {
         //
     }

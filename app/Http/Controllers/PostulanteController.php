@@ -30,24 +30,30 @@ class PostulanteController extends Controller {
 
     public function index() {
         Gate::authorize('havepermiso', 'Trabajador.index');
+
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         $postulantes = UserPriv::where([['empresa_id', $empresa->id], ['role_id', '6']])->get();
+
         return view('postulantes.index', [
-            'postulantes' => $postulantes
+            'postulantes'   => $postulantes,
+            'empresa'       => $empresa
         ]);
     }
- 
+
     public function create() {
         Gate::authorize('havepermiso', 'Trabajador.create');
+
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
+
         return view('postulantes.create', [
             'empresa' => $empresa
         ]);
     }
- 
+
     public function store(PostulanteRequests $request) {
         Gate::authorize('havepermiso', 'Trabajador.create');
-        $empresa = Empresa::findOrFail( $request['empresa'] );        
+
+        $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         $request->validated();
 
         try {
@@ -60,7 +66,7 @@ class PostulanteController extends Controller {
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
                 ]);
-                
+
                 DB::connection($empresa->data_base)->table('personas')->insert([
                     'id'                => $idPersona,
                     'nombre'            => $request['nombre'],
@@ -99,10 +105,10 @@ class PostulanteController extends Controller {
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->route('postulante.index')
-                ->with('danger', "El Trabajador NO pudo crearse correctamente. Comunicarse con TI de Aprore.");
+                ->with('danger', "El Postulante NO pudo crearse correctamente. Comunicarse con TI de Aprore.");
         }
         return redirect()->route('informacion.create', $idTrabajador)
-            ->with('success', "El Trabajador fue creado correctamente.");
+            ->with('success', "El Postulante fue creado correctamente.");
     }
 
     public function inforCreate($trabajador) {
@@ -123,12 +129,12 @@ class PostulanteController extends Controller {
         Gate::authorize('havepermiso', 'Trabajador.informacion.create');
 
         $request->validated();
-        $empresa = Empresa::findOrFail( $request['empresa'] );  
-        $postulante = Trabajador::findOrFail( $request['postulante'] );     
+        $empresa = Empresa::findOrFail( $request['empresa'] );
+        $postulante = Trabajador::findOrFail( $request['postulante'] );
 
         try {
             DB::beginTransaction();
-                
+
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                     'curp'              => $request['curp'],
                     'rfc'               => $request['rfc'],
@@ -173,8 +179,8 @@ class PostulanteController extends Controller {
             'expediente'    => 'required | mimes:rar,zip,pdf|max:2048'
         ]);
 
-        $empresa = Empresa::findOrFail( $request['empresa'] );  
-        $postulante = Trabajador::findOrFail( $request['postulante'] );   
+        $empresa = Empresa::findOrFail( $request['empresa'] );
+        $postulante = Trabajador::findOrFail( $request['postulante'] );
 
         try {
             DB::beginTransaction();
@@ -183,7 +189,7 @@ class PostulanteController extends Controller {
                     $filePath = $request->file('expediente');
 
                     Storage::disk('expediente')->put($fileName, File::get($filePath));
-        
+
                     DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                         'expediente_path'   => $fileName,
                         'estado'            => 2,
@@ -197,29 +203,29 @@ class PostulanteController extends Controller {
         return redirect()->route('postulante.index')
             ->with('success', "El Expediente del Trabajador fue subido correctamente.");
     }
- 
+
     public function show($id) {
         Gate::authorize('havepermiso', 'Trabajador.show');
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.show', [
             'postulante' => $postulante
         ]);
     }
- 
+
     public function edit($id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.edit', [
             'empresa' => $empresa,
             'postulante' => $postulante
         ]);
     }
- 
+
     public function update(Request $request, $id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
 
         $request->validate([
             'nombre'            => 'required | String | max:255',
@@ -230,7 +236,7 @@ class PostulanteController extends Controller {
             'fecha_nacimiento'  => 'required | Date',
             'email'             => 'required | Email | max:255 | unique:users,email,'.$postulante->user->id,
         ]);
-        
+
         if ($postulante->visto_bueno != 0) {
             return redirect()->route('postulante.index')
                 ->with('danger', "Algo ocurrio mal. Comunicarse con TI de Aprore.");
@@ -246,7 +252,7 @@ class PostulanteController extends Controller {
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
                 ]);
-                
+
                 DB::connection($empresa->data_base)->table('personas')->where('id', $postulante->user->persona->id)->update([
                     'nombre'            => $request['nombre'],
                     'apellido_paterno'  => $request['apellido_paterno'],
@@ -272,21 +278,21 @@ class PostulanteController extends Controller {
         return redirect()->route('postulante.index')
             ->with('success', "El Trabajador fue editado correctamente.");
     }
- 
+
     public function inforEdit($id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.informacion-edit', [
             'empresa' => $empresa,
             'postulante' => $postulante
         ]);
     }
-    
+
     public function inforUpdate(Request $request, $id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
 
         $request->validate([
             'curp'              => 'required | String | max:18',
@@ -299,7 +305,7 @@ class PostulanteController extends Controller {
             'fecha_alta'        => 'required | Date',
             'clabe_bancaria'    => ''
         ]);
-        
+
         if ($postulante->visto_bueno != 0) {
             return redirect()->route('postulante.index')
                 ->with('danger', "Algo ocurrio mal. Comunicarse con TI de Aprore.");
@@ -307,7 +313,7 @@ class PostulanteController extends Controller {
 
         try {
             DB::beginTransaction();
-                
+
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                     'curp'              => $request['curp'],
                     'rfc'               => $request['rfc'],
@@ -333,7 +339,7 @@ class PostulanteController extends Controller {
     public function expeEdit($id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );    
+        $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.expediente-edit', [
             'empresa' => $empresa,
             'postulante' => $postulante
@@ -347,7 +353,7 @@ class PostulanteController extends Controller {
             'expediente'    => 'required | mimes:rar,zip,pdf|max:2048'
         ]);
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $id );   
+        $postulante = Trabajador::findOrFail( $id );
 
         try {
             DB::beginTransaction();
@@ -356,7 +362,7 @@ class PostulanteController extends Controller {
                     $filePath = $request->file('expediente');
 
                     Storage::disk('expediente')->put($fileName, File::get($filePath));
-        
+
                     DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                         'expediente_path'   => $fileName,
                     ]);
@@ -370,10 +376,10 @@ class PostulanteController extends Controller {
         return redirect()->route('postulante.index')
             ->with('success', "El Expediente del Trabajador fue editado correctamente.");
     }
-    
+
     public function expeshow($id) {
         Gate::authorize('havepermiso', 'Trabajador.edit');
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         $file = Storage::disk('expediente')->url($postulante->expediente_path);
         return $file;
     }
@@ -411,7 +417,7 @@ class PostulanteController extends Controller {
     }
     public function validar($id) {
         Gate::authorize('havepermiso', 'Trabajador.show');
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         // dd($postulante->user->empresa->nombre);
         return view('postulantes.validar', [
             'postulante' => $postulante
@@ -425,15 +431,15 @@ class PostulanteController extends Controller {
             DB::beginTransaction();
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                     'visto_bueno'   => 1,
-                    'estado'        => 3, 
+                    'estado'        => 3,
                 ]);
-                
+
                 //Enviar Correo
-                    Mail::to('daniel@gmail.com')->queue(new ValidacionSolicitada($postulante)); 
+                    Mail::to('daniel@gmail.com')->queue(new ValidacionSolicitada($postulante));
                 // $staffs = Staff::where('empresa_id', $empresa->id)-get();
                 // foreach($staffs as $staff){
                 // }
-                
+
                 // return  new ValidacionSolicitada($postulante);
             DB::commit();
         } catch (\Throwable $th) {
@@ -458,7 +464,7 @@ class PostulanteController extends Controller {
     }
     public function aprobarSoli($id) {
         Gate::authorize('havepermiso', 'Trabajador.show');
-        $postulante = Trabajador::findOrFail( $id );     
+        $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.solicitud-show', [
             'postulante' => $postulante
         ]);
@@ -466,28 +472,28 @@ class PostulanteController extends Controller {
 
     public function solicitudAceptar(Request $request) {
         Gate::authorize('havepermiso', 'Trabajador.show');
-        
+
         $request->validate([
             'trabajador'    => 'required | Numeric',
         ]);
 
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $request->trabajador );  
-          
+        $postulante = Trabajador::findOrFail( $request->trabajador );
+
         // return  new ValidacionSolicitada($postulante);
         try {
             DB::beginTransaction();
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                     'visto_bueno'   => 2,
-                    'estado'        => 4, 
+                    'estado'        => 4,
                 ]);
-                
+
                 //Enviar Correo
                 // $staffs = Staff::where('empresa_id', $empresa->id)-get();
                 // foreach($staffs as $staff){
-                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante)); 
+                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante));
                 // }
-                
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -505,22 +511,22 @@ class PostulanteController extends Controller {
             'motivoRechazo'   => 'required | max:10000 | min:1'
         ]);
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
-        $postulante = Trabajador::findOrFail( $request->trabajador );    
+        $postulante = Trabajador::findOrFail( $request->trabajador );
         // return  new ValidacionSolicitada($postulante);
         try {
             DB::beginTransaction();
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
                     'visto_bueno'   => 0,
-                    'estado'        => 5, 
+                    'estado'        => 5,
                     'descripcion'   => $request->motivoRechazo
                 ]);
-                
+
                 //Enviar Correo
                 // $staffs = Staff::where('empresa_id', $empresa->id)-get();
                 // foreach($staffs as $staff){
-                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante)); 
+                //     Mail::to($staff->user->email)->queue(new ValidacionSolicitada($postulante));
                 // }
-                
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();

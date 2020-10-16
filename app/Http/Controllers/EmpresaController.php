@@ -22,7 +22,7 @@ class EmpresaController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
-    
+
     public function index() {
         Gate::authorize('havepermiso', 'empresa.index');
         return view('empresas.index', [
@@ -55,7 +55,7 @@ class EmpresaController extends Controller
                 ]);
 
                 $empresa = Empresa::find($idEmpresa);
-                
+
                 DB::connection($empresa->data_base)->table('empresas')->insert([
                     'id'            => $idEmpresa,
                     'nombre'        => $request['nombre'],
@@ -72,7 +72,6 @@ class EmpresaController extends Controller
             return redirect()->route('empresa.index')
                 ->with('danger', "La empresa no pudo crearse correctamente. Verifique que la BD sea creada previamente.");
         }
-        
         return redirect()->route('empresa.index')
             ->with('success', "Empresa creada correctamente.");
     }
@@ -81,12 +80,12 @@ class EmpresaController extends Controller
         Gate::authorize('havepermiso', 'empresa.show');
 
         return view('empresas.show', [
-            'empresa' => $empresa,
-            'modulos' => Auth::user()->empresaPriv->modulos,
-            'admins'  => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '2'] ])->get(),
-            'staffs'  => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '3'] ])->get(),
-            'encargados'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '4'] ])->get(),
-            'secres'   => User::where([ ['empresa_id', $empresa->id], ['role_id', '5'] ])->get()
+            'empresa'       => $empresa,
+            'modulos'       => Auth::user()->empresaPriv->modulos,
+            'admins'        => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '2'] ])->get(),
+            'staffs'        => StaffPriv::where([ ['empresa_id', $empresa->id], ['role_id', '3'] ])->get(),
+            'encargados'    => User::where([ ['empresa_id', $empresa->id], ['role_id', '4'] ])->get(),
+            'secres'        => User::where([ ['empresa_id', $empresa->id], ['role_id', '5'] ])->get()
         ]);
     }
 

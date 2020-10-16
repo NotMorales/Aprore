@@ -20,7 +20,6 @@ class EmpresaStaffRequests extends FormRequest {
             'name'              => 'required | String | max:255',
             'email'             => 'required | Email | max:255 | unique:users,email',
             'password'          => 'required | String | min:8',
-            'empresa'           => 'required | Numeric'
         ];
     }
 }

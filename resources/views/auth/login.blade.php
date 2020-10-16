@@ -17,7 +17,7 @@
                     <div class="login-form login-signin">
                         <div class="text-center mb-10 mb-lg-20">
                             <h2 class="font-weight-bold">Iniciar Sesión</h2>
-                            <p class="text-muted font-weight-bold">Ingrese su nombre de usuario y contraseña</p>
+                            <p class="text-muted font-weight-bold">Ingrese su Correo y Contraseña</p>
                         </div>
                         <!--begin::Form-->
                         <form method="POST" action="{{ route('login') }}" autocomplete="off" class="form">
@@ -48,7 +48,7 @@
                         <!--end::Form-->
                     </div>
                     <!--end::Signin-->
-                    
+
                 </div>
                 <!--end::Aside body-->
                 <!--begin: Aside footer for desktop-->
@@ -88,5 +88,5 @@
 @endsection
 
 @section('script')
-    
+
 @endsection
