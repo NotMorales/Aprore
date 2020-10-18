@@ -5,6 +5,7 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 
 class errors extends Component {
+
     public function __construct() {
 
     }

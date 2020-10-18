@@ -54,12 +54,8 @@ var KTBlockUIDemo = function () {
             KTApp.block('#kt_blockui_content', {
                 overlayColor: '#000000',
                 state: 'primary',
-                message: 'Processing...'
+                message: 'Espere un momento...'
             });
-
-            setTimeout(function() {
-                KTApp.unblock('#kt_blockui_content');
-            }, 2000);
         });
     }
 
@@ -231,14 +227,34 @@ var KTBlockUIDemo = function () {
 
         $('#kt_blockui_page_custom_text_2').click(function() {
             KTApp.blockPage({
-                overlayColor: '#000000',
-                state: 'primary',
-                message: 'Processing...'
+                overlayColor: 'red',
+                opacity: 0.1,
+                size: 'lg',
+                state: 'danger',
+                title: 'Leyendo archivo',
+                message: 'Espere un momento...'
             });
+        });
 
-            setTimeout(function() {
-                KTApp.unblockPage();
-            }, 2000);
+        $('#loading_masivo_save').click(function() {
+            KTApp.blockPage({
+                overlayColor: 'red',
+                opacity: 0.1,
+                size: 'lg',
+                state: 'danger',
+                title: 'Guardando informacion',
+                message: 'Espere un momento...'
+            });
+        });
+
+        $('#masivoForm').submit(function() {
+            KTApp.blockPage({
+                overlayColor: 'red',
+                opacity: 0.1,
+                size: 'lg',
+                state: 'danger',
+                message: 'Espere un momento...'
+            });
         });
     }
 

@@ -123,7 +123,7 @@ class UserStaffController extends Controller {
 
         //Tarea:
         //Filtrar, No debe salir, si ya pertenece
-        $postulantes = Staff::where('empresa_id', '!=', $empresa->id)->groupBy('user_id')->get();
+        $postulantes = Staff::where('empresa_id', '!=', $empresa->id)->get()->groupBy('user_id');
 
         return view('staff.assign-empresa-staff', [
             'empresa' => $empresa,

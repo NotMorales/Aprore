@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Importar Personal Masivamente" 
+    <x-subheader title="Importar Personal Masivamente"
         :subheaders="[ ['href'=>'postulante.index', 'nombre'=>'Inicio'] ]"
         :acciones="[ ['href'=>'postulante.create', 'nombre'=>'Crear Postulante', 'permiso'=>'Trabajador.create'] ]">
     </x-subheader>
@@ -32,18 +32,18 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('postulantemasivo.store') }}" autocomplete="off" enctype="multipart/form-data">
+                <form method="POST" id="masivoForm" action="{{ route('postulantemasivo.store') }}" autocomplete="off" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         @if ( $errors->any() )
                             <x-errors></x-errors>
                         @endif
-                        
+
                         <div class="form-group">
                             <label>Archivo Plantilla:</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile" name="file" accept=".xlsx"/>
+                                <input type="file" class="custom-file-input @error('file') is-invalid @enderror" id="customFile" name="file" accept=".xlsx"/>
                                 <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
                             </div>
                         </div>
@@ -60,11 +60,12 @@
     </div>
     <!--end::Entry-->
 @endsection
-    
+
 @section('head')
 
 @endsection
 
 @section('script')
-
+    <!--begin::Page Scripts(used by this page)-->
+    <script src="{{ asset('js/pages/features/miscellaneous/blockui.js') }}"></script>
 @endsection

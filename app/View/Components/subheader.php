@@ -8,11 +8,13 @@ class subheader extends Component
 {
     public $subheaders;
     public $acciones;
+    public $title;
 
-    public function __construct($subheaders=[], $acciones=[])
+    public function __construct($subheaders=[], $acciones=[], $title="")
     {
         $this->subheaders = $subheaders;
         $this->acciones = $acciones;
+        $this->title = $title;
     }
 
     /**

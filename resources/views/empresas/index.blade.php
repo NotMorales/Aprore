@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Empresas"
+    <x-subheader title="Epresas"
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Inicio'] ]"
         :acciones="[ ['href'=>'empresa.create', 'nombre'=>'Crear Empresa', 'permiso'=>'empresa.create'] ]">
     </x-subheader>

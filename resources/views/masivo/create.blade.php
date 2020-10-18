@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulantes" 
+    <x-subheader title="Postulantes"
         :subheaders="[ ['href'=>'postulante.index', 'nombre'=>'Masivo'] ]"
         :acciones="[ ]">
     </x-subheader>
@@ -76,13 +76,13 @@
                                         <td>{{ $item[15] }}</td>
                                     </tr>
                                 @endif
-                                
+
                             @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
                 </div>
-                <form method="POST" action="{{ route('postulantemasivo.save') }}">
+                <form method="POST" id="masivoForm" action="{{ route('postulantemasivo.save') }}">
                     @csrf
                     <input type="hidden" name="file" value="{{ $file }}">
                     <input type="hidden" name="nombre" value="">
@@ -113,7 +113,7 @@
     </div>
     <!--end::Entry-->
 @endsection
-    
+
 @section('head')
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
@@ -123,12 +123,14 @@
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
     <script src="{{ asset('js/responsive.bootstrap4.min.js') }}" defer></script>
     <script src="{{ asset('js/dataTables.responsive.min.js') }}" defer></script>
+
+    <!--begin::Page Scripts(used by this page)-->
+    <script src="{{ asset('js/pages/features/miscellaneous/blockui.js') }}"></script>
     <script>
         $(document).ready( function () {
             $('#myTable').DataTable({
                 responsive: true
             });
-            
         } );
     </script>
 @endsection

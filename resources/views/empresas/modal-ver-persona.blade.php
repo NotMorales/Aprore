@@ -45,9 +45,9 @@
                     </div>
                 <div>
             </div>
-            <!--<div class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary font-weight-bold" data-dismiss="modal">Cerrar</button>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>

@@ -16,8 +16,8 @@ use App\Http\Controllers\UserSecretariaController;
 Route::resource('empresa', EmpresaController::class)->except(['edit', 'update', 'destroy']);
 Route::resource('empresa.admin', UserAdminController::class)->only(['create', 'store']);
 Route::resource('empresa.staff', UserStaffController::class)->only(['create', 'store']);
-Route::get('empresa/{empresa}/staff/assign', [StaffController::class, 'assign'])->name('empresa.staff.assign');
-Route::post('empresa/{empresa}/staff/assign', [StaffController::class, 'assignStore'])->name('empresa.staff.assign.store');
+Route::get('empresa/{empresa}/staff/assign', [UserStaffController::class, 'assign'])->name('empresa.staff.assign');
+Route::post('empresa/{empresa}/staff/assign', [UserStaffController::class, 'assignStore'])->name('empresa.staff.assign.store');
 Route::resource('empresa.encargado', UserEncargadoController::class)->only(['create', 'store']);
 Route::resource('empresa.secretaria', UserSecretariaController::class)->only(['create', 'store']);
 

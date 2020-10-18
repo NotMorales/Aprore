@@ -25,7 +25,11 @@ class PostulanteMasivoController extends Controller {
     }
 
     public function store(Request $request) {
-        $fileName = time().'_Expediente_'.$request->file->getClientOriginalName();
+        $request->validate([
+            'file' => 'required',
+        ]);
+
+        $fileName = time().'_Masivo_'.$request->file->getClientOriginalName();
         $filePath = $request->file('file');
 
         Storage::disk('masivo')->put($fileName, File::get($filePath));
@@ -71,7 +75,7 @@ class PostulanteMasivoController extends Controller {
                         'fecha_alta'        => $fechaAlta->addDays($value[14]-2)->format('Y-m-d'),
                         'clabe_bancaria'    => $value[15]
                     ]);
-                    $validator = Validator::make($request->all(), [
+                    $validator  = Validator::make($request->all(), [
                         'nombre'            => 'required | String | max:255',
                         'apellido_paterno'  => 'required | String | max:255',
                         'apellido_materno'  => 'required | String | max:255',

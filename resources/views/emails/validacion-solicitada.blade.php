@@ -1,14 +1,13 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Solicitud de validacion</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Solicitud de validacion</title>
 
-    <!-- Favicons -->
-    <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
-    <meta name="theme-color" content="#563d7c">
+        <!-- Favicons -->
+        <link rel="icon" href="/docs/4.5/assets/img/favicons/favicon.ico">
+        <meta name="theme-color" content="#563d7c">
 
 
     <style>
@@ -36,129 +35,128 @@
     </style>
     <!-- Custom styles for this template -->
     <link href="form-validation.css" rel="stylesheet">
-  </head>
-  <body class="bg-light">
+</head>
+<body class="bg-light">
     <div class="container">
-  <div class="py-5 text-center">
-    <img class="d-block mx-auto mb-4" src="https://www.flaticon.es/svg/static/icons/svg/1603/1603757.svg" alt="" width="72" height="72">
-    <h2>Nueva solicitud de Validación.</h2>
-    <p class="lead">La empresa {{ $postulante->user->empresa->nombre }} ha solicitado la aprovacion de su persona:</p>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8">
-      <h4 class="mb-3">{{ $postulante->user->persona->nombre }} {{ $postulante->user->persona->apellido_paterno }} {{ $postulante->user->persona->apellido_materno }}</h4>
-      
-        <div class="row">
-            <div class="form-group col-lg-6">
-                <label>Sexo </label>
-                <input type="tel" class="form-control" value="{{ $postulante->user->persona->sexo }}" readonly="readonly"/>
-                </select>
-            </div>
-            
-            <div class="form-group col-lg-6">
-                <label>Telefono:</label>
-                <input type="tel" class="form-control" value="{{ $postulante->user->persona->telefono }}" readonly="readonly"/>
-            </div>
-
-            <div class="form-group col-lg-6">
-                <label>Fecha de Nacimiento:</label>
-                <input type="text" class="form-control" value="{{ $postulante->user->persona->fecha_nacimiento }}" readonly="readonly"/>
-            </div>
-
-            <div class="form-group col-lg-6">
-                <label>Correo Electronico:</label>
-                <input type="email" class="form-control" value="{{ $postulante->user->email }}" readonly="readonly"/>
-            </div>
-
-            <div class="form-group col-lg-6">
-                <label>Curp:</label>
-                <input type="text" class="form-control" value="{{ $postulante->curp }}" readonly="readonly"/>
-            </div>
-
-            <div class="form-group col-lg-6">
-                <label>RFC:</label>
-                <input type="text" class="form-control" value="{{ $postulante->rfc }}" readonly="readonly"/>
-            </div>
-
-            <div class="form-group col-lg-6">
-                <label>Numero de Seguro Social:</label>
-                <input type="tel" class="form-control" value="{{ $postulante->nss }}" readonly="readonly"/>
-            </div>
-            
-            <div class="form-group col-lg-6">
-                <label>Clabe Interbancaria:</label>
-                <input type="text" class="form-control" value="{{ $postulante->clabe_bancaria }}" readonly="readonly"/>
-            </div>
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="https://www.flaticon.es/svg/static/icons/svg/1603/1603757.svg" alt="" width="72" height="72">
+            <h2>Nueva solicitud de Validación.</h2>
+            <p class="lead">La empresa {{ $postulante->user->empresa->nombre }} ha solicitado la aprovacion de su persona:</p>
         </div>
 
-        <p class="font-size-h5">Dirección: </p>
-
         <div class="row">
-            <div class="form-group col-lg-6">
-                <label>Calle y Numero:</label>
-                <input type="text" class="form-control" value="{{ $postulante->calle }}" readonly="readonly"/>
-            </div>
-            
-            <div class="form-group col-lg-6">
-                <label>Colonia:</label>
-                <input type="text" class="form-control" value="{{ $postulante->colonia }}" readonly="readonly"/>
-            </div>
+            <div class="col-md-8">
+                <h4 class="mb-3">{{ $postulante->user->persona->nombre }} {{ $postulante->user->persona->apellido_paterno }} {{ $postulante->user->persona->apellido_materno }}</h4>
 
-            <div class="form-group col-lg-6">
-                <label>Ciudad:</label>
-                <input type="text" class="form-control " value="{{ $postulante->ciudad }}" readonly="readonly"/>
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label>Sexo </label>
+                        <input type="tel" class="form-control" value="{{ $postulante->user->persona->sexo }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Telefono:</label>
+                        <input type="tel" class="form-control" value="{{ $postulante->user->persona->telefono }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Fecha de Nacimiento:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->user->persona->fecha_nacimiento }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Correo Electronico:</label>
+                        <input type="email" class="form-control" value="{{ $postulante->user->email }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Curp:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->curp }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>RFC:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->rfc }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Numero de Seguro Social:</label>
+                        <input type="tel" class="form-control" value="{{ $postulante->nss }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Clabe Interbancaria:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->clabe_bancaria }}" readonly="readonly"/>
+                    </div>
+                </div>
+
+                <p class="font-size-h5">Dirección: </p>
+
+                <div class="row">
+                    <div class="form-group col-lg-6">
+                        <label>Calle y Numero:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->calle }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Colonia:</label>
+                        <input type="text" class="form-control" value="{{ $postulante->colonia }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Ciudad:</label>
+                        <input type="text" class="form-control " value="{{ $postulante->ciudad }}" readonly="readonly"/>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Codigo Postal:</label>
+                        <input type="tel" class="form-control" value="{{ $postulante->codigo_postal }}" readonly="readonly"/>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                <a href="https://aprore.com/sisgp" class="btn btn-primary btn-lg btn-block">Validar</a>
             </div>
-            
-            <div class="form-group col-lg-6">
-                <label>Codigo Postal:</label>
-                <input type="tel" class="form-control" value="{{ $postulante->codigo_postal }}" readonly="readonly"/>
-            </div>
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Empresa</span>
+                </h4>
+                <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Nombre:</h6>
+                        <small class="text-muted">{{ $postulante->user->empresa->nombre }}</small>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Telefono:</h6>
+                        <small class="text-muted">{{ $postulante->user->empresa->telefono }}</small>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Correo:</h6>
+                        <small class="text-muted">{{ $postulante->user->empresa->correo }}</small>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <div>
+                        <h6 class="my-0">Contacto:</h6>
+                        <small class="text-muted">{{ $postulante->user->empresa->contacto }}</small>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <hr class="mb-4">
-        <a href="https://aprore.com/sisgp" class="btn btn-primary btn-lg btn-block">Validar</a>
     </div>
-    <div class="col-md-4 order-md-2 mb-4">
-        <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-muted">Empresa</span>
-        </h4>
-        <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Nombre:</h6>
-              <small class="text-muted">{{ $postulante->user->empresa->nombre }}</small>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Telefono:</h6>
-              <small class="text-muted">{{ $postulante->user->empresa->telefono }}</small>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-              <h6 class="my-0">Correo:</h6>
-              <small class="text-muted">{{ $postulante->user->empresa->correo }}</small>
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between bg-light">
-            <div>
-              <h6 class="my-0">Contacto:</h6>
-              <small class="text-muted">{{ $postulante->user->empresa->contacto }}</small>
-            </div>
-          </li>
-        </ul>
-      </div>
-  </div>
 
-  <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2020 Aprore</p>
-    <ul class="list-inline">
-      <li class="list-inline-item"><a href="#">Privacy</a></li>
-      <li class="list-inline-item"><a href="#">Terms</a></li>
-      <li class="list-inline-item"><a href="#">Support</a></li>
-    </ul>
-  </footer>
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2020 Aprore</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="/docs/4.5/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>

@@ -4,22 +4,16 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class botonOneRoute extends Component
-{
+class botonOneRoute extends Component {
     public $route;
+    public $title;
 
-    public function __construct($route='')
-    {
+    public function __construct($route='', $title="") {
         $this->route = $route;
+        $this->title = $title;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\View\View|string
-     */
-    public function render()
-    {
+    public function render() {
         return view('components.boton-one-route');
     }
 }

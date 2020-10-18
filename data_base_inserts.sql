@@ -35,7 +35,7 @@ INSERT INTO `users` (`id`, `persona_id`, `role_id`, `empresa_id`, `name`, `email
 -- Volcado de datos para la tabla `modulos`
 --
 
-INSERT INTO `modulos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES 
+INSERT INTO `modulos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Registro de Clientes', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (2, 'Registro de Nomina', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
 
@@ -43,7 +43,7 @@ INSERT INTO `modulos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`
 -- Volcado de datos para la tabla `modulo_user`
 --
 
-INSERT INTO `empresa_modulo` (`id`, `empresa_id`, `modulo_id`, `created_at`, `updated_at`, `deleted_at`) VALUES 
+INSERT INTO `empresa_modulo` (`id`, `empresa_id`, `modulo_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '1', '1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (2, '1', '2', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL);
 
@@ -51,7 +51,7 @@ INSERT INTO `empresa_modulo` (`id`, `empresa_id`, `modulo_id`, `created_at`, `up
 -- Volcado de datos para la tabla `permisos`
 --
 
-INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES 
+INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'empresa.index', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (2, 'empresa.create', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (3, 'empresa.edit', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
@@ -62,6 +62,7 @@ INSERT INTO `permisos` (`id`, `nombre`, `descripcion`, `created_at`, `updated_at
 (8, 'Empresa.staff.edit', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (9, 'Empresa.staff.show', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (10, 'Empresa.staff.destroy', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
+(null, 'Empresa.staff.assign', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (11, 'Empresa.admin.index', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (12, 'Empresa.admin.create', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),
 (13, 'Empresa.admin.edit', NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL),

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="es">
     <head>
         @include('layouts.meta')
-        
         <!-- Extras -->
         @yield('head')
     </head>
@@ -30,7 +29,6 @@
 
         @include('includes.user-panel')
         @include('includes.scroll')
-            
         <!-- Extras -->
         @include('includes.config')
         @yield('script')
