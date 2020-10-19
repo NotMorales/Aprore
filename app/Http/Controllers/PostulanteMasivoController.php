@@ -25,20 +25,25 @@ class PostulanteMasivoController extends Controller {
     }
 
     public function store(Request $request) {
-        $request->validate([
-            'file' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'file' => 'required',
+            ]);
 
-        $fileName = time().'_Masivo_'.$request->file->getClientOriginalName();
-        $filePath = $request->file('file');
+            $fileName = time().'_Masivo_'.$request->file->getClientOriginalName();
+            $filePath = $request->file('file');
 
-        Storage::disk('masivo')->put($fileName, File::get($filePath));
-        $array = Excel::toArray(new PostulanteImport, $filePath);
+            Storage::disk('masivo')->put($fileName, File::get($filePath));
+            $array = Excel::toArray(new PostulanteImport, $filePath);
 
-        return view('masivo.create', [
-            'array'     => $array[0],
-            'file'      => $fileName,
-        ]);
+            return view('masivo.create', [
+                'array'     => $array[0],
+                'file'      => $fileName,
+            ]);
+        }catch (\Throwable $exception) {
+            return redirect()->route('postulantemasivo.index')
+                ->with('danger', "La lectura del documento fallo. Comunicarse con TI de Aprore.");
+        }
     }
 
     public function save(Request $request) {
@@ -99,6 +104,7 @@ class PostulanteMasivoController extends Controller {
                             ->withErrors($validator)
                             ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1]);
                     }
+
                     $idPersona = DB::connection('mysql')->table('personas')->insertGetID([
                         'nombre'            => $request['nombre'],
                         'apellido_paterno'  => $request['apellido_paterno'],
@@ -180,7 +186,7 @@ class PostulanteMasivoController extends Controller {
     }
 
     public function descargar() {
-         //PDF file is stored under project/public/download/info.pdf
+         //Descargar la plantilla
          return Storage::disk('public')->download('Personal.xlsx');
     }
 }

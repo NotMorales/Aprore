@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmpresaController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PostulanteExpedienteController;
+use App\Http\Controllers\PostulanteInformacionController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\PostulanteMasivoController;
 use App\Http\Controllers\UserAdminController;
@@ -21,23 +22,24 @@ Route::post('empresa/{empresa}/staff/assign', [UserStaffController::class, 'assi
 Route::resource('empresa.encargado', UserEncargadoController::class)->only(['create', 'store']);
 Route::resource('empresa.secretaria', UserSecretariaController::class)->only(['create', 'store']);
 
-Route::resource('postulante', PostulanteController::class);
-
-Route::post('postulante/delete/destroy', [PostulanteController::class, 'destroy'])->name('postulante.delete');
-Route::resource('postulantemasivo', PostulanteMasivoController::class);
+Route::resource('postulantemasivo', PostulanteMasivoController::class)->only(['index', 'store']);
 Route::post('postulante/save/', [PostulanteMasivoController::class, 'save'])->name('postulantemasivo.save');
 Route::get('postulantemasivo/plantilla/descargar', [PostulanteMasivoController::class, 'descargar'])->name('postulantemasivo.plantilla');
 
-Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
-Route::get('postulante/informacion/create/{trabajador}', [PostulanteController::class, 'inforCreate'])->name('informacion.create');
-Route::post('postulante/informacion/create/store/', [PostulanteController::class, 'inforStore'])->name('informacion.store');
-Route::get('postulante/informacion/edit/{trabajador}', [PostulanteController::class, 'inforEdit'])->name('informacion.edit');
-Route::patch('postulante/informacion/update/{trabajador}', [PostulanteController::class, 'inforUpdate'])->name('informacion.update');
-Route::get('postulante/expediente/create/{trabajador}', [PostulanteController::class, 'expeCreate'])->name('expediente.create');
-Route::post('postulante/expediente/create/store/', [PostulanteController::class, 'expeStore'])->name('expediente.store');
-Route::get('postulante/expediente/edit/{trabajador}', [PostulanteController::class, 'expeEdit'])->name('expediente.edit');
-Route::patch('postulante/expediente/update/{trabajador}', [PostulanteController::class, 'expeUpdate'])->name('expediente.update');
-Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
+Route::resource('postulante', PostulanteController::class);
+Route::resource('postulante.informacion', PostulanteInformacionController::class)->except(['index', 'show', 'destroy'])->shallow();
+Route::resource('postulante.expediente', PostulanteExpedienteController::class)->except(['index', 'destroy'])->shallow();
+//Route::post('postulante/delete/destroy', [PostulanteController::class, 'destroy'])->name('postulante.delete');
+//Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
+//Route::get('postulante/informacion/create/{trabajador}', [PostulanteController::class, 'inforCreate'])->name('informacion.create');
+//Route::post('postulante/informacion/create/store/', [PostulanteController::class, 'inforStore'])->name('informacion.store');
+//Route::get('postulante/informacion/edit/{trabajador}', [PostulanteController::class, 'inforEdit'])->name('informacion.edit');
+//Route::patch('postulante/informacion/update/{trabajador}', [PostulanteController::class, 'inforUpdate'])->name('informacion.update');
+//Route::get('postulante/expediente/create/{trabajador}', [PostulanteController::class, 'expeCreate'])->name('expediente.create');
+//Route::post('postulante/expediente/create/store/', [PostulanteController::class, 'expeStore'])->name('expediente.store');
+//Route::get('postulante/expediente/edit/{trabajador}', [PostulanteController::class, 'expeEdit'])->name('expediente.edit');
+//Route::patch('postulante/expediente/update/{trabajador}', [PostulanteController::class, 'expeUpdate'])->name('expediente.update');
+//Route::get('postulante/expediente/get/{trabajador}', [PostulanteController::class, 'expeshow'])->name('expediente.show');
 Route::get('postulante/validar/show/{trabajador}', [PostulanteController::class, 'validar'])->name('trabajador.validar');
 Route::post('postulante/validar/show', [PostulanteController::class, 'validarSoli'])->name('trabajador.soliValidar');
 

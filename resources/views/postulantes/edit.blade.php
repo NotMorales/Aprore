@@ -1,6 +1,6 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
+    <x-subheader title="Postulante"
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Editar'] ]"
         :acciones="[ ]">
     </x-subheader>
@@ -40,8 +40,10 @@
                                 <!--begin::Wizard Step 2 Nav-->
                                 <div class="wizard-step" data-wizard-type="step" >
                                     <div class="wizard-label">
-                                        <i class="wizard-icon flaticon-interface-3"></i>
-                                        <h3 class="wizard-title">2. Inforacion del trabajador</h3>
+                                        <a href="{{ route('informacion.edit', $postulante->id) }}">
+                                            <i class="wizard-icon flaticon-interface-3"></i>
+                                            <h3 class="wizard-title">2. Inforacion del trabajador</h3>
+                                        </a>
                                     </div>
                                     <span class="svg-icon svg-icon-xl wizard-arrow">
                                         <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
@@ -59,13 +61,15 @@
                                 <!--begin::Wizard Step 3 Nav-->
                                 <div class="wizard-step" data-wizard-type="step">
                                     <div class="wizard-label">
-                                        <i class="wizard-icon flaticon-doc"></i>
-                                        <h3 class="wizard-title">3. Expediente</h3>
+                                        <a href="{{ route('expediente.edit', $postulante->id) }}">
+                                            <i class="wizard-icon flaticon-doc"></i>
+                                            <h3 class="wizard-title">3. Expediente</h3>
+                                        </a>
                                     </div>
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
@@ -99,7 +103,7 @@
                                 <option value="Femenino" {{ 'Femenino' == $postulante->user->persona->sexo ? ' selected' : ''}}>Mujer</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="telefono">Telefono: <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono', $postulante->user->persona->telefono) }}" id="telefono" name="telefono" placeholder="9211479791" />
@@ -119,7 +123,6 @@
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mr-2">Guardar</button>
                         <button type="reset" class="btn btn-secondary mr-2">Cancelar</button>
-                        <a href="{{ route('informacion.edit', $postulante->id) }}" class="btn btn-info">Siguiente</a>
                     </div>
                 </form>
                 <!--end::Form-->
@@ -131,14 +134,14 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
 <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $("#kt_datepicker_1").datepicker({ 
+        $("#kt_datepicker_1").datepicker({
             format: 'yyyy-mm-dd'
         });
     </script>

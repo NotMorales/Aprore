@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Editar'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Postulante"
+                 :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Completar'] ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,14 +14,14 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap ">
                     <!--begin::Wizard-->
-				    <div class="wizard wizard-1">
+                    <div class="wizard wizard-1">
                         <!--begin::Wizard Nav-->
                         <div class="wizard-nav border-bottom">
                             <div class="wizard-steps p-8 p-lg-10">
                                 <!--begin::Wizard Step 1 Nav-->
                                 <div class="wizard-step" data-wizard-type="step">
                                     <div class="wizard-label">
-                                        <a href="{{ route('postulante.edit', $postulante->id) }}">
+                                        <a href="">
                                             <i class="wizard-icon flaticon-user"></i>
                                             <h3 class="wizard-title">1. Datos Personales</h3>
                                         </a>
@@ -67,15 +67,13 @@
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('informacion.update') }}" autocomplete="off">
+                <form method="POST" action="{{ route('postulante.informacion.store', $postulante->id) }}" autocomplete="off">
                     @csrf
-                    <input type="hidden" name="postulante" value="{{$postulante->id}}">
-                    <input type="hidden" name="empresa" value="{{$empresa->id}}">
                     <div class="card-body">
                         @if ( $errors->any() )
                             <x-errors></x-errors>
@@ -86,7 +84,7 @@
                         </div>
                         <div class="form-group">
                             <label for="curp">Curp: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('curp') is-invalid @enderror" value="{{ old('curp', $postulante->curp) }}" id="curp" name="curp" placeholder="MOVL991024GHXDSC06" />
+                            <input type="text" class="form-control @error('curp') is-invalid @enderror" value="{{ old('curp') }}" id="curp" name="curp" placeholder="MOVL991024GHXDSC06" />
                         </div>
 
                         <div class="form-group">
@@ -99,6 +97,11 @@
                             <input type="tel" class="form-control @error('nss') is-invalid @enderror" value="{{ old('nss') }}" id="nss" name="nss" placeholder="0155745512" />
                         </div>
 
+                        <div class="form-group">
+                            <label for="clabe_bancaria">Clabe Interbancaria:</label>
+                            <input type="tel" class="form-control @error('clabe_bancaria') is-invalid @enderror" value="{{ old('clabe_bancaria') }}" id="clabe_bancaria" name="clabe_bancaria" placeholder="15769516" />
+                        </div>
+
                         <p class="font-size-h5">Dirección: </p>
 
                         <div class="row">
@@ -106,7 +109,7 @@
                                 <label for="calle">Calle y Numero:</label>
                                 <input type="text" class="form-control @error('calle') is-invalid @enderror" value="{{ old('calle') }}" id="calle" name="calle" placeholder="Av. Universitaria #105" />
                             </div>
-                            
+
                             <div class="form-group col-lg-6">
                                 <label for="colonia">Colonia:</label>
                                 <input type="text" class="form-control @error('colonia') is-invalid @enderror" value="{{ old('colonia') }}" id="colonia" name="colonia" placeholder="Centro" />
@@ -116,17 +119,17 @@
                                 <label for="ciudad">Ciudad:</label>
                                 <input type="text" class="form-control @error('ciudad') is-invalid @enderror" value="{{ old('ciudad') }}" id="ciudad" name="ciudad" placeholder="Coatzacoalcos" />
                             </div>
-                            
+
                             <div class="form-group col-lg-6">
                                 <label for="codigo_postal">Codigo Postal:</label>
                                 <input type="tel" class="form-control @error('codigo_postal') is-invalid @enderror" value="{{ old('codigo_postal') }}" id="codigo_postal" name="codigo_postal" placeholder="96536" />
                             </div>
 
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="kt_datepicker_1">Fecha de Alta: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('fecha_alta') is-invalid @enderror" value="{{ old('fecha_nacimiento') }}" id="kt_datepicker_1" name="fecha_alta" readonly="readonly" placeholder="05/10/2020" />
+                            <input type="text" class="form-control @error('fecha_alta') is-invalid @enderror" value="{{ old('fecha_alta') }}" id="kt_datepicker_1" name="fecha_alta" readonly="readonly" placeholder="05/10/2020" />
                         </div>
 
                     </div>
@@ -144,14 +147,14 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
-<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $("#kt_datepicker_1").datepicker({ 
+        $("#kt_datepicker_1").datepicker({
             format: 'yyyy-mm-dd'
         });
     </script>

@@ -30,7 +30,7 @@
         <div id="kt_aside_menu" class="aside-menu my-4" data-menu-vertical="1" data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav">
-                
+
                 <li class="menu-item menu-item-active" aria-haspopup="true">
                     <a href="{{ route('index') }}" class="menu-link">
                         <span class="svg-icon menu-icon">
@@ -47,7 +47,7 @@
                         <span class="menu-text">Inicio</span>
                     </a>
                 </li>
-                
+
                 @can('havepermiso', 'empresa.index')
                     <li class="menu-section">
                         <h4 class="menu-text">Registro de Clientes</h4>
@@ -127,7 +127,7 @@
                                         <span class="menu-text">Trabajadores</span>
                                     </span>
                                 </li>
-                                @can('havepermiso', 'Trabajador.index')
+                                @can('havepermiso', 'Postulante.index')
                                     <li class="menu-item" aria-haspopup="true">
                                         <a href="{{ route('postulante.index') }}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-line">
@@ -137,7 +137,7 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('havepermiso', 'Trabajador.create')
+                                @can('havepermiso', 'Postulante.create')
                                     <li class="menu-item" aria-haspopup="true">
                                         <a href="{{ route('postulante.create') }}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-line">
@@ -147,7 +147,7 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('havepermiso', 'Trabajador.validar.aprobar')
+                                @can('havepermiso', 'Postulante.validar.aprobar')
                                     <li class="menu-item" aria-haspopup="true">
                                         <a href="{{ route('solicitudes.index') }}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-line">

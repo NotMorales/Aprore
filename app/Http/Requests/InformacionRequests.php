@@ -22,8 +22,6 @@ class InformacionRequests extends FormRequest {
             'colonia'           => 'required | String | max:255',
             'ciudad'            => 'required | String | max:255',
             'codigo_postal'     => 'required | Numeric',
-            'empresa'           => 'required | Numeric',
-            'postulante'        => 'required | Numeric',
             'fecha_alta'        => 'required | Date',
             'clabe_bancaria'    => ''
         ];

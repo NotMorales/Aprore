@@ -10,9 +10,9 @@
             <div class="modal-body">
                 <p>Usted está por eliminar un Postulante.</p>
                 <h4>¿Desea continuar?</h4>
-                <form id="form-eliminar-postulante" method="post" action="{{ route('postulante.delete') }}">
+                <form id="form-eliminar-postulante" method="post" action="{{ route('postulante.destroy', '') }}">
                     @csrf
-                    <input type="hidden" name="trabajador">
+                    @method('delete')
                 </form>
             </div>
             <div class="modal-footer">

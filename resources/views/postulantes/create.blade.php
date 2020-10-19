@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
+    <x-subheader title="Postulante"
         :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Registro'] ]"
-        :acciones="[ ['href'=>'postulantemasivo.index', 'nombre'=>'Importar Masivamente', 'permiso'=>'Trabajador.create'] ]">
+        :acciones="[ ['href'=>'postulantemasivo.index', 'nombre'=>'Importar Masivamente', 'permiso'=>'Postulante.create'] ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -65,14 +65,13 @@
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
                 <!--begin::Form-->
                 <form method="POST" action="{{ route('postulante.store') }}" autocomplete="off">
                     @csrf
-                    <input type="hidden" name="empresa" value="{{$empresa->id}}">
                     <div class="card-body">
                         @if ( $errors->any() )
                             <x-errors></x-errors>
@@ -99,7 +98,7 @@
                                 <option value="Femenino" {{ old('sexo') == 'Femenino' ? ' selected' : ''}}>Mujer</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="telefono">Telefono: <span class="text-danger">*</span></label>
                             <input type="tel" class="form-control @error('telefono') is-invalid @enderror" value="{{ old('telefono') }}" id="telefono" name="telefono" placeholder="9211479791" />
@@ -130,14 +129,14 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
 <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $("#kt_datepicker_1").datepicker({ 
+        $("#kt_datepicker_1").datepicker({
             format: 'yyyy-mm-dd'
         });
     </script>

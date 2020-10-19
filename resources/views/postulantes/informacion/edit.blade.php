@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Editar'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Postulante"
+                 :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Editar'] ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,7 +14,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap ">
                     <!--begin::Wizard-->
-				    <div class="wizard wizard-1">
+                    <div class="wizard wizard-1">
                         <!--begin::Wizard Nav-->
                         <div class="wizard-nav border-bottom">
                             <div class="wizard-steps p-8 p-lg-10">
@@ -61,18 +61,20 @@
                                 <!--begin::Wizard Step 3 Nav-->
                                 <div class="wizard-step" data-wizard-type="step">
                                     <div class="wizard-label">
-                                        <i class="wizard-icon flaticon-doc"></i>
-                                        <h3 class="wizard-title">3. Expediente</h3>
+                                        <a href="{{ route('postulante.expediente.edit', $postulante->id) }}">
+                                            <i class="wizard-icon flaticon-doc"></i>
+                                            <h3 class="wizard-title">3. Expediente</h3>
+                                        </a>
                                     </div>
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('informacion.update', $postulante->id) }}" autocomplete="off">
+                <form method="POST" action="{{ route('postulante.informacion.update', $postulante->id) }}" autocomplete="off">
                     @csrf
                     @method('PATCH')
                     <div class="card-body">
@@ -105,7 +107,7 @@
                                 <label for="calle">Calle y Numero:</label>
                                 <input type="text" class="form-control @error('calle') is-invalid @enderror" value="{{ old('calle', $postulante->calle) }}" id="calle" name="calle" placeholder="Av. Universitaria #105" />
                             </div>
-                            
+
                             <div class="form-group col-lg-6">
                                 <label for="colonia">Colonia:</label>
                                 <input type="text" class="form-control @error('colonia') is-invalid @enderror" value="{{ old('colonia', $postulante->colonia) }}" id="colonia" name="colonia" placeholder="Centro" />
@@ -115,14 +117,14 @@
                                 <label for="ciudad">Ciudad:</label>
                                 <input type="text" class="form-control @error('ciudad') is-invalid @enderror" value="{{ old('ciudad', $postulante->ciudad) }}" id="ciudad" name="ciudad" placeholder="Coatzacoalcos" />
                             </div>
-                            
+
                             <div class="form-group col-lg-6">
                                 <label for="codigo_postal">Codigo Postal:</label>
                                 <input type="tel" class="form-control @error('codigo_postal') is-invalid @enderror" value="{{ old('codigo_postal', $postulante->codigo_postal) }}" id="codigo_postal" name="codigo_postal" placeholder="96536" />
                             </div>
 
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="kt_datepicker_1">Fecha de Alta: <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('fecha_alta') is-invalid @enderror" value="{{ old('fecha_alta', $postulante->fecha_alta) }}" id="kt_datepicker_1" name="fecha_alta" readonly="readonly" placeholder="05/10/2020" />
@@ -132,7 +134,6 @@
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mr-2">Guardar</button>
                         <button type="reset" class="btn btn-secondary mr-2">Cancelar</button>
-                        <a href="{{ route('expediente.edit', $postulante->id) }}" class="btn btn-info">Siguiente</a>
                     </div>
                 </form>
                 <!--end::Form-->
@@ -144,14 +145,14 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
-<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script>
-        $("#kt_datepicker_1").datepicker({ 
+        $("#kt_datepicker_1").datepicker({
             format: 'yyyy-mm-dd'
         });
     </script>

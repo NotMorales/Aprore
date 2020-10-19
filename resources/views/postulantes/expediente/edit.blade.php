@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Expediente'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Postulante"
+                 :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Expediente'] ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,7 +14,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap ">
                     <!--begin::Wizard-->
-				    <div class="wizard wizard-1">
+                    <div class="wizard wizard-1">
                         <!--begin::Wizard Nav-->
                         <div class="wizard-nav border-bottom">
                             <div class="wizard-steps p-8 p-lg-10">
@@ -45,7 +45,7 @@
                                         <a href="{{ route('informacion.edit', $postulante->id) }}">
                                             <i class="wizard-icon flaticon-interface-3"></i>
                                             <h3 class="wizard-title">2. Inforacion del trabajador</h3>
-                                        </a> 
+                                        </a>
                                     </div>
                                     <span class="svg-icon svg-icon-xl wizard-arrow">
                                         <!--begin::Svg Icon | path:assets/media/svg/icons/Navigation/Arrow-right.svg-->
@@ -69,7 +69,7 @@
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
@@ -84,12 +84,12 @@
                         <div>
                             <iframe src="{{'https://' . Storage::disk('expediente')->url($postulante->expediente_path)}}" width="100%" height="400" frameborder="0"></iframe>
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Nuevo Expediente del Trabajador:</label>
                             <div></div>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="customFile" name="expediente" accept=".pdf,.zip,.rar"/>
+                                <input type="file" class="custom-file-input @error('expediente') is-invalid @enderror" id="customFile" name="expediente" accept=".pdf,.zip,.rar"/>
                                 <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 

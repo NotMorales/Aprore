@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Completar'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Postulante"
+                 :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Expediente'] ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,7 +14,7 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap ">
                     <!--begin::Wizard-->
-				    <div class="wizard wizard-1">
+                    <div class="wizard wizard-1">
                         <!--begin::Wizard Nav-->
                         <div class="wizard-nav border-bottom">
                             <div class="wizard-steps p-8 p-lg-10">
@@ -40,7 +40,7 @@
                                 </div>
                                 <!--end::Wizard Step 1 Nav-->
                                 <!--begin::Wizard Step 2 Nav-->
-                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
+                                <div class="wizard-step" data-wizard-type="step" >
                                     <div class="wizard-label">
                                         <i class="wizard-icon flaticon-interface-3"></i>
                                         <h3 class="wizard-title">2. Inforacion del trabajador</h3>
@@ -59,7 +59,7 @@
                                 </div>
                                 <!--end::Wizard Step 2 Nav-->
                                 <!--begin::Wizard Step 3 Nav-->
-                                <div class="wizard-step" data-wizard-type="step">
+                                <div class="wizard-step" data-wizard-type="step" data-wizard-state="current">
                                     <div class="wizard-label">
                                         <i class="wizard-icon flaticon-doc"></i>
                                         <h3 class="wizard-title">3. Expediente</h3>
@@ -67,77 +67,30 @@
                                 </div>
                                 <!--end::Wizard Step 3 Nav-->
                             </div>
-                        </div> 
+                        </div>
                         <!--end::Wizard Nav-->
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('informacion.store') }}" autocomplete="off">
+                <form method="POST" action="{{ route('postulante.expediente.store', $postulante->id) }}" autocomplete="off" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="postulante" value="{{$postulante->id}}">
-                    <input type="hidden" name="empresa" value="{{$empresa->id}}">
                     <div class="card-body">
                         @if ( $errors->any() )
                             <x-errors></x-errors>
                         @endif
-                        <div class="form-group">
-                            <label>Persona:</label>
-                            <input type="text" class="form-control" readonly value="{{ $postulante->user->persona->nombre }} {{ $postulante->user->persona->apellido_paterno }} {{ $postulante->user->persona->apellido_materno }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="curp">Curp: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('curp') is-invalid @enderror" value="{{ old('curp') }}" id="curp" name="curp" placeholder="MOVL991024GHXDSC06" />
-                        </div>
 
                         <div class="form-group">
-                            <label for="rfc">RFC: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('rfc') is-invalid @enderror" value="{{ old('rfc') }}" id="rfc" name="rfc" placeholder="MOVL991024CD5" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="nss">Numero de Seguro Social: <span class="text-danger">*</span></label>
-                            <input type="tel" class="form-control @error('nss') is-invalid @enderror" value="{{ old('nss') }}" id="nss" name="nss" placeholder="0155745512" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="clabe_bancaria">Clabe Interbancaria:</label>
-                            <input type="tel" class="form-control @error('clabe_bancaria') is-invalid @enderror" value="{{ old('clabe_bancaria') }}" id="clabe_bancaria" name="clabe_bancaria" placeholder="15769516" />
-                        </div>
-
-                        <p class="font-size-h5">Dirección: </p>
-
-                        <div class="row">
-                            <div class="form-group col-lg-6">
-                                <label for="calle">Calle y Numero:</label>
-                                <input type="text" class="form-control @error('calle') is-invalid @enderror" value="{{ old('calle') }}" id="calle" name="calle" placeholder="Av. Universitaria #105" />
+                            <label>Expediente del Trabajador:</label>
+                            <div></div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input @error('expediente') is-invalid @enderror" id="customFile" name="expediente" accept=".pdf,.zip,.rar"/>
+                                <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
                             </div>
-                            
-                            <div class="form-group col-lg-6">
-                                <label for="colonia">Colonia:</label>
-                                <input type="text" class="form-control @error('colonia') is-invalid @enderror" value="{{ old('colonia') }}" id="colonia" name="colonia" placeholder="Centro" />
-                            </div>
-
-                            <div class="form-group col-lg-6">
-                                <label for="ciudad">Ciudad:</label>
-                                <input type="text" class="form-control @error('ciudad') is-invalid @enderror" value="{{ old('ciudad') }}" id="ciudad" name="ciudad" placeholder="Coatzacoalcos" />
-                            </div>
-                            
-                            <div class="form-group col-lg-6">
-                                <label for="codigo_postal">Codigo Postal:</label>
-                                <input type="tel" class="form-control @error('codigo_postal') is-invalid @enderror" value="{{ old('codigo_postal') }}" id="codigo_postal" name="codigo_postal" placeholder="96536" />
-                            </div>
-
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="kt_datepicker_1">Fecha de Alta: <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control @error('fecha_alta') is-invalid @enderror" value="{{ old('fecha_alta') }}" id="kt_datepicker_1" name="fecha_alta" readonly="readonly" placeholder="05/10/2020" />
-                        </div>
-
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mr-2">Guardar</button>
-                        <a href="{{ route('postulante.index') }}'" class="btn btn-secondary">Despues</a>
+                        <a href="{{ route('postulante.index') }}" class="btn btn-secondary">Despues</a>
                     </div>
                 </form>
                 <!--end::Form-->
@@ -149,15 +102,10 @@
     <!--end::Entry-->
 @endsection
 
-@section('head') 
+@section('head')
     <link href="{{ asset('css/wizard.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
-<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-    <script>
-        $("#kt_datepicker_1").datepicker({ 
-            format: 'yyyy-mm-dd'
-        });
-    </script>
+
 @endsection

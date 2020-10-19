@@ -19,34 +19,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="phpstorm">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="Ordenamiento de modulo, loading mensaje en importacion masiva.">
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/expediente/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/expediente/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/informacion/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/informacion/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/modal/mensaje.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteMasivoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteMasivoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserStaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserStaffController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/alerta.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/alerta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/botonOneRoute.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/botonOneRoute.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/errors.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/errors.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/noticia.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/noticia.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/sesiones.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/sesiones.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/subheader.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/subheader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/InformacionRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/InformacionRequests.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/PostulanteRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/PostulanteRequests.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_base_inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data_base_inserts.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/pages/features/miscellaneous/blockui.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/pages/features/miscellaneous/blockui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/errors.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/errors.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/subheader.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/subheader.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/emails/validacion-solicitada.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/validacion-solicitada.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/empresas/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/empresas/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/empresas/modal-ver-persona.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/empresas/modal-ver-persona.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/config.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/config.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/includes/header-mobile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/header-mobile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/appNew.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/appNew.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/meta.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/meta.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/masivo/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/masivo/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/masivo/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/masivo/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/staff/create-empresa-admin.blade copy.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/test.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/expediente-edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/expediente.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/informacion-edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/informacion.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/informcion-edit.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/modal/deleteTrabajador.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/modal/deleteTrabajador.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,7 +48,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -221,7 +215,8 @@
       <updated>1602607716151</updated>
       <workItem from="1602607717259" duration="5000" />
       <workItem from="1602820970578" duration="41000" />
-      <workItem from="1602872090858" duration="15152000" />
+      <workItem from="1602872090858" duration="15367000" />
+      <workItem from="1603045788533" duration="17393000" />
     </task>
     <task id="LOCAL-00001" summary="phpstorm">
       <created>1602886652367</created>
@@ -230,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602886652367</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Ordenamiento de modulo, loading mensaje en importacion masiva.">
+      <created>1603000758685</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1603000758685</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,28 +248,30 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="phpstorm" />
-    <option name="LAST_COMMIT_MESSAGE" value="phpstorm" />
+    <MESSAGE value="Ordenamiento de modulo, loading mensaje en importacion masiva." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ordenamiento de modulo, loading mensaje en importacion masiva." />
   </component>
   <component name="WindowStateProjectService">
     <state x="275" y="42" key="#Deployment" timestamp="1602872194270">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="275" y="42" key="#Deployment/0.0.1366.768@0.0.1366.768" timestamp="1602872194270" />
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602995746669">
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603082549672">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1602995746669" />
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1603082549672" />
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog" timestamp="1602997460007">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1602997460007" />
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1602886664847">
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1603000764582">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1602886664847" />
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1603000764582" />
     <state x="289" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602999008627">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

@@ -2,7 +2,7 @@
 @section('content')
     <x-subheader title="Postulantes"
         :subheaders="[ ['href'=>'postulante.index', 'nombre'=>'Inicio'] ]"
-        :acciones="[ ['href'=>'postulante.create', 'nombre'=>'Crear Postulante', 'permiso'=>'Trabajador.create'] ] ">
+        :acciones="[ ['href'=>'postulante.create', 'nombre'=>'Crear Postulante', 'permiso'=>'Postulante.create'] ] ">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -44,13 +44,13 @@
                                             <span class="label label-danger label-inline mr-2">Pendiente</span>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.informacion.create')
-                                                <a href="{{ route('informacion.create', $postulante->trabajador->id) }}" title="Completar"><i class="flaticon2-pen text-primary"></i></a>
+                                            @can('havepermiso', 'Postulante.informacion.create')
+                                                <a href="{{ route('postulante.informacion.create', $postulante->trabajador->id) }}" title="Completar"><i class="flaticon2-pen text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.destroy')
+                                            @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
                                             @endcan
                                         </td>
@@ -60,11 +60,13 @@
                                             <span class="label label-info label-inline mr-2">Registrado</span>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
-                                            <a href="{{ route('expediente.create', $postulante->trabajador->id) }}" title="Expediente"><i class="flaticon2-document text-primary"></i></a>
-                                            @can('havepermiso', 'Trabajador.destroy')
+                                            @can('havepermiso', 'Postulante.expediente.create')
+                                                    <a href="{{ route('postulante.expediente.create', $postulante->trabajador->id) }}" title="Expediente"><i class="flaticon2-document text-primary"></i></a>
+                                            @endcan
+                                            @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
                                             @endcan
                                         </td>
@@ -74,17 +76,17 @@
                                             <span class="label label-primary label-inline mr-2">Completo</span>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.edit')
+                                            @can('havepermiso', 'Postulante.edit')
                                                 <a href="{{ route('postulante.edit', $postulante->trabajador->id) }}" title="Editar"><i class="flaticon2-pen text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.validar.solicitar')
-                                                <a href="{{ route('trabajador.validar', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
-                                            @endcan
-                                            @can('havepermiso', 'Trabajador.destroy')
+                                            @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
+                                            @endcan
+                                            @can('havepermiso', 'Postulante.validar.solicitar')
+                                                <a href="{{ route('trabajador.validar', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
                                             @endcan
                                         </td>
                                     @endif
@@ -93,7 +95,7 @@
                                             <span class="label label-warning label-inline mr-2">Validando</span>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
                                         </td>
@@ -103,7 +105,7 @@
                                             <span class="label label-success label-inline mr-2">Aceptado</span>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
                                         </td>
@@ -113,16 +115,16 @@
                                             <a href="#" data-toggle="modal" data-target="#mensaje" data-trabajador="{{ $postulante->trabajador->descripcion }}"><span class="label label-danger label-inline mr-2">Rechazado</span></a>
                                         </td>
                                         <td>
-                                            @can('havepermiso', 'Trabajador.edit')
+                                            @can('havepermiso', 'Postulante.edit')
                                                 <a href="{{ route('postulante.edit', $postulante->trabajador->id) }}" title="Editar"><i class="flaticon2-pen text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.show')
+                                            @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.validar.solicitar')
+                                            @can('havepermiso', 'Postulante.validar.solicitar')
                                                 <a href="{{ route('trabajador.validar', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Trabajador.destroy')
+                                            @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
                                             @endcan
                                         </td>
@@ -139,25 +141,7 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-    <div class="modal fade" id="mensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Postulante Rechazado:</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h4>Mensaje:</h4>
-                    <p class="mensaje"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('postulantes.modal.mensaje')
     @include('postulantes.modal.deleteTrabajador')
 @endsection
 
@@ -183,14 +167,16 @@
             var button = $(event.relatedTarget);
             var trabajador = button.data('trabajador');
             var modal = $(this);
-            modal.find('.modal-body input[name=trabajador]').val(trabajador);
+            modal.find('.modal-body form').attr('action', '{{ route('postulante.destroy', '') }}');
+            var action = $("#form-eliminar-postulante").attr('action') + '/' + trabajador;
+            modal.find('.modal-body form').attr('action', action);
         });
+
         $('#mensaje').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var msg = button.data('trabajador');
             var modal = $(this);
             modal.find('.mensaje').text(msg);
         });
-
     </script>
 @endsection
