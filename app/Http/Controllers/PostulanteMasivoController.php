@@ -88,9 +88,9 @@ class PostulanteMasivoController extends Controller {
                         'telefono'          => 'required | Numeric',
                         'fecha_nacimiento'  => 'required | Date',
                         'email'             => 'required | Email | max:255 | unique:users,email',
-                        'curp'              => 'required | String | max:18 | min:16 | unique:'. $empresa->data_base . '.trabajadores,curp',
-                        'rfc'               => 'required | String | max:13 | min:12 | unique:'. $empresa->data_base . '.trabajadores,rfc',
-                        'nss'               => 'required | Numeric | digits_between:10,11 | unique:'. $empresa->data_base . '.trabajadores,nss',
+                        'curp'              => 'required | String | max:18 | min:18 | unique:'. $empresa->data_base . '.trabajadores,curp',
+                        'rfc'               => 'required | String | max:13 | min:13 | unique:'. $empresa->data_base . '.trabajadores,rfc',
+                        'nss'               => 'required | Numeric | digits:11 | unique:'. $empresa->data_base . '.trabajadores,nss',
                         'calle'             => 'required | String | max:255',
                         'colonia'           => 'required | String | max:255',
                         'ciudad'            => 'required | String | max:255',
@@ -98,11 +98,25 @@ class PostulanteMasivoController extends Controller {
                         'fecha_alta'        => 'required | Date',
                         'clabe_bancaria'    => ''
                     ]);
+
                     if ($validator->fails()) {
                         DB::rollBack();
                         return redirect()->route('postulantemasivo.index')
                             ->withErrors($validator)
                             ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1]);
+                    }
+
+                    if (!PostulanteInformacionController::validate_curp($request['curp'])){
+                        return redirect()->route('postulantemasivo.index')
+                            ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1] . "Utilizar una CURP valida.");
+                    }
+                    if (!PostulanteInformacionController::validate_rfc($request['rfc'])){
+                        return redirect()->route('postulantemasivo.index')
+                            ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1] . "Utilizar un RFC valido.");
+                    }
+                    if (!PostulanteInformacionController::validate_nss($request['nss'])){
+                        return redirect()->route('postulantemasivo.index')
+                            ->with('danger', "Corregir informacion de: " . $value[0] . " " . $value[1] . "Utilizar un NSS valido.");
                     }
 
                     $idPersona = DB::connection('mysql')->table('personas')->insertGetID([

@@ -45,7 +45,7 @@ class PostulanteExpedienteController extends Controller {
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         $postulante = Trabajador::findOrFail( $id );
         $request->validate([
-            'expediente'    => 'required | mimes:rar,zip,pdf | max:2048'
+            'expediente'    => 'required | mimes:rar,zip,pdf| max:2048'
         ]);
 
         try {
@@ -95,7 +95,7 @@ class PostulanteExpedienteController extends Controller {
     public function update(Request $request, $id) {
         Gate::authorize('havepermiso', 'Postulante.edit');
         $request->validate([
-            'expediente'    => 'required | mimes:rar,zip,pdf |max:2048'
+            'expediente'    => 'required | mimes:rar,zip,pdf|max:2048'
         ]);
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         $postulante = Trabajador::findOrFail( $id );

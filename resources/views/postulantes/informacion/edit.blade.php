@@ -61,7 +61,7 @@
                                 <!--begin::Wizard Step 3 Nav-->
                                 <div class="wizard-step" data-wizard-type="step">
                                     <div class="wizard-label">
-                                        <a href="{{ route('postulante.expediente.edit', $postulante->id) }}">
+                                        <a href="{{ route('expediente.edit', $postulante->id) }}">
                                             <i class="wizard-icon flaticon-doc"></i>
                                             <h3 class="wizard-title">3. Expediente</h3>
                                         </a>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form method="POST" action="{{ route('postulante.informacion.update', $postulante->id) }}" autocomplete="off">
+                <form method="POST" action="{{ route('informacion.update', $postulante->id) }}" autocomplete="off">
                     @csrf
                     @method('PATCH')
                     <div class="card-body">
