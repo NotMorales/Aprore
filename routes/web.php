@@ -7,6 +7,7 @@ use App\Http\Controllers\PostulanteExpedienteController;
 use App\Http\Controllers\PostulanteInformacionController;
 use App\Http\Controllers\PostulanteController;
 use App\Http\Controllers\PostulanteMasivoController;
+use App\Http\Controllers\PostulanteSolicitudController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserStaffController;
 use App\Http\Controllers\UserEncargadoController;
@@ -28,14 +29,8 @@ Route::resource('postulante.expediente', PostulanteExpedienteController::class)-
 Route::resource('postulantemasivo', PostulanteMasivoController::class)->only(['index', 'store']);
 Route::post('postulante/save/', [PostulanteMasivoController::class, 'save'])->name('postulantemasivo.save');
 Route::get('postulantemasivo/plantilla/descargar', [PostulanteMasivoController::class, 'descargar'])->name('postulantemasivo.plantilla');
+Route::resource('postulante.solicitud', PostulanteSolicitudController::class)->shallow();
 
-Route::get('postulante/validar/show/{trabajador}', [PostulanteController::class, 'validar'])->name('trabajador.validar');
-Route::post('postulante/validar/show', [PostulanteController::class, 'validarSoli'])->name('trabajador.soliValidar');
-
-Route::get('postulante/solicitudes/index', [PostulanteController::class, 'indexSoli'])->name('solicitudes.index');
-Route::get('postulante/solicitudes/aporbar/{trabajador}', [PostulanteController::class, 'aprobarSoli'])->name('solicitudes.aprobar');
-Route::post('postulante/solicitudes/aprobar/pos', [PostulanteController::class, 'solicitudAceptar'])->name('solicitud.aceptar');
-Route::post('postulante/solicitudes/rechazo/pos', [PostulanteController::class, 'solicitudRechazo'])->name('solicitud.rechazo');
 
 Route::get('/home', function () {
     return view('welcome');

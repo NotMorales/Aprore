@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Solicitar Validación" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Validar'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Solicitar Validación"
+                 :subheaders="[ ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -29,45 +29,55 @@
                         </x-boton> --}}
                     </div>
                 </div>
-                
+
                 <div class="card-body">
+                    @if ($postulante->estado == 5)
+                        <div class="alert alert-custom alert-danger fade show mb-5" role="alert">
+                            <div class="alert-icon"><i class="flaticon-warning"></i></div>
+                            <div class="alert-text">{{ $postulante->descripcion }}</div>
+                            <div class="alert-close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="form-group col-lg-6">
                             <label>Sexo </label>
                             <input type="tel" class="form-control" value="{{ $postulante->user->persona->sexo }}" readonly="readonly"/>
-                            </select>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Telefono:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->user->persona->telefono }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Fecha de Nacimiento:</label>
                             <input type="text" class="form-control" value="{{ $postulante->user->persona->fecha_nacimiento }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Correo Electronico:</label>
                             <input type="email" class="form-control" value="{{ $postulante->user->email }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Curp:</label>
                             <input type="text" class="form-control" value="{{ $postulante->curp }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>RFC:</label>
                             <input type="text" class="form-control" value="{{ $postulante->rfc }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Numero de Seguro Social:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->nss }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Clabe Interbancaria:</label>
                             <input type="text" class="form-control" value="{{ $postulante->clabe_bancaria }}" readonly="readonly"/>
@@ -81,7 +91,7 @@
                             <label>Calle y Numero:</label>
                             <input type="text" class="form-control" value="{{ $postulante->calle }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Colonia:</label>
                             <input type="text" class="form-control" value="{{ $postulante->colonia }}" readonly="readonly"/>
@@ -91,13 +101,13 @@
                             <label>Ciudad:</label>
                             <input type="text" class="form-control " value="{{ $postulante->ciudad }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Codigo Postal:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->codigo_postal }}" readonly="readonly"/>
                         </div>
                     </div>
-                    
+
                     <div>
                         <iframe src="{{'https://' . Storage::disk('expediente')->url($postulante->expediente_path)}}" width="100%" height="400" frameborder="0"></iframe>
                     </div>
@@ -112,11 +122,11 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
-    
+
     @include('postulantes.modal.validarTrabajador')
 @endsection
 
-@section('head') 
+@section('head')
 
 @endsection
 
@@ -124,9 +134,7 @@
     <script>
         $('#validarTrabajador').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
-            var trabajador = button.data('trabajador');
             var modal = $(this);
-            modal.find('.modal-body input[name=trabajador]').val(trabajador);
         });
     </script>
 @endsection

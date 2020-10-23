@@ -19,17 +19,27 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="Ordenamiento 19-10">
-      <change afterPath="$PROJECT_DIR$/app/helpers.php" afterDir="false" />
+    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="Validar CURP, NSS, RFC">
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/solicitud/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/solicitud/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/postulantes/solicitud/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteExpedienteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteExpedienteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteInformacionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteInformacionController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteMasivoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteMasivoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Requests/InformacionRequests.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Requests/InformacionRequests.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/StaffController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TrabajadorController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/error_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_base_inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data_base_inserts.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/formato.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/informacion/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/informacion/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/informacion/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/informacion/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/trabajadores/create.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/modal/validarTrabajador.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/modal/validarTrabajador.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/solicitud-index.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/solicitud-show.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/validar.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -205,7 +215,9 @@
       <workItem from="1602607717259" duration="5000" />
       <workItem from="1602820970578" duration="41000" />
       <workItem from="1602872090858" duration="15367000" />
-      <workItem from="1603045788533" duration="28836000" />
+      <workItem from="1603045788533" duration="30474000" />
+      <workItem from="1603329320281" duration="1640000" />
+      <workItem from="1603425022388" duration="6402000" />
     </task>
     <task id="LOCAL-00001" summary="phpstorm">
       <created>1602886652367</created>
@@ -228,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603085167844</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Validar CURP, NSS, RFC">
+      <created>1603142495651</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1603142495651</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +269,8 @@
     <MESSAGE value="phpstorm" />
     <MESSAGE value="Ordenamiento de modulo, loading mensaje en importacion masiva." />
     <MESSAGE value="Ordenamiento 19-10" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ordenamiento 19-10" />
+    <MESSAGE value="Validar CURP, NSS, RFC" />
+    <option name="LAST_COMMIT_MESSAGE" value="Validar CURP, NSS, RFC" />
   </component>
   <component name="WindowStateProjectService">
     <state x="275" y="42" key="#Deployment" timestamp="1602872194270">
@@ -261,18 +281,18 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="442" y="186" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1603085101350" />
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603116943162">
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603426757611">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1603116943162" />
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1603426757611" />
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog" timestamp="1602997460007">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1602997460007" />
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1603085170573">
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1603142496112">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1603085170573" />
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1603142496112" />
     <state x="289" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602999008627">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

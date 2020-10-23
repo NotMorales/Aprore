@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PostulanteExpedienteController extends Controller {
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function index() {
         //

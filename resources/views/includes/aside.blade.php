@@ -147,14 +147,14 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('havepermiso', 'Postulante.validar.aprobar')
+                                @can('havepermiso', 'Postulante.solicitud.index')
                                     <li class="menu-item" aria-haspopup="true">
-                                        <a href="{{ route('solicitudes.index') }}" class="menu-link">
+                                        <a href="{{ route('postulante.solicitud.index', 'ver') }}" class="menu-link">
                                             <i class="menu-bullet menu-bullet-line">
                                                 <span></span>
                                             </i>
                                             <span class="menu-text">Solicitudes de Validaciones</span>
-                                            @inject('solicitudes', 'App\Http\Controllers\PostulanteController')
+                                            @inject('solicitudes', 'App\Http\Controllers\PostulanteSolicitudController')
                                             @if ( $solicitudes->solicitudes() > 0)
                                                 <span class="menu-label">
                                                     <span class="label label-danger label-inline">{{ $solicitudes->solicitudes() }}</span>

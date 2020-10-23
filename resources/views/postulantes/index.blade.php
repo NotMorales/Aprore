@@ -85,8 +85,8 @@
                                             @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Postulante.validar.solicitar')
-                                                <a href="{{ route('trabajador.validar', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
+                                            @can('havepermiso', 'Postulante.solicitud.create')
+                                                <a href="{{ route('postulante.solicitud.create', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
                                             @endcan
                                         </td>
                                     @endif
@@ -121,9 +121,9 @@
                                             @can('havepermiso', 'Postulante.show')
                                                 <a href="{{ route('postulante.show', $postulante->trabajador->id) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
                                             @endcan
-                                            @can('havepermiso', 'Postulante.validar.solicitar')
-                                                <a href="{{ route('trabajador.validar', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
-                                            @endcan
+                                                @can('havepermiso', 'Postulante.solicitud.create')
+                                                    <a href="{{ route('postulante.solicitud.create', $postulante->trabajador->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
+                                                @endcan
                                             @can('havepermiso', 'Postulante.destroy')
                                                 <a href="#" title="Eliminar" data-toggle="modal" data-target="#deleteTrabajador" data-trabajador="{{ $postulante->trabajador->id }}"><i class="flaticon2-trash text-primary"></i></a>
                                             @endcan

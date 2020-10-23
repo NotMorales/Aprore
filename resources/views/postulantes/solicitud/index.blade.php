@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Solicitudes" 
-        :subheaders="[]"
-        :acciones="[]">
+    <x-subheader title="Solicitudes"
+                 :subheaders="[]"
+                 :acciones="[]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -15,7 +15,7 @@
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
                         <h3 class="card-label">Solicitudes de Postulantes:
-                        <span class="d-block text-muted pt-2 font-size-sm">Listado de postulantes, por aceptar.</span></h3>
+                            <span class="d-block text-muted pt-2 font-size-sm">Listado de postulantes, por aceptar.</span></h3>
                     </div>
                     <div class="card-toolbar">
                         {{-- <x-boton class="btn-primary" title="exportar">
@@ -35,32 +35,32 @@
                     <!--begin: Datatable-->
                     <table class="table display" id="myTable">
                         <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Telefono</th>
-                                <th>Correo</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach ($postulantes as $postulante)
-                                <tr>
-                                    <td>{{ $postulante->user->persona->nombre }}</td>
-                                    <td>{{ $postulante->user->persona->telefono }}</td>
-                                    <td>{{ $postulante->user->email }}</td>
-                                    @if ( $postulante->estado == 3 )
-                                        <td>
-                                            <span class="label label-warning label-inline mr-2">Validando</span>
-                                        </td>
-                                        <td>
-                                            @can('havepermiso', 'Trabajador.validar.aprobar')
-                                                <a href="{{ route('solicitudes.aprobar', $postulante->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
-                                            @endcan
-                                        </td>
-                                    @endif
-                                </tr>
-                            @endforeach
+                        @foreach ($postulantes as $postulante)
+                            <tr>
+                                <td>{{ $postulante->user->persona->nombre }}</td>
+                                <td>{{ $postulante->user->persona->telefono }}</td>
+                                <td>{{ $postulante->user->email }}</td>
+                                @if ( $postulante->estado == 3 )
+                                    <td>
+                                        <span class="label label-warning label-inline mr-2">Validando</span>
+                                    </td>
+                                    <td>
+                                        @can('havepermiso', 'Postulante.solicitud.show') <!--esto es aprobar-->
+                                            <a href="{{ route('solicitud.show', $postulante->id) }}" title="Validar"><i class="flaticon2-checkmark text-primary"></i></a>
+                                        @endcan
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
@@ -73,14 +73,14 @@
     <!--end::Entry-->
     @include('postulantes.modal.deleteTrabajador')
 @endsection
-    
+
 @section('head')
     <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script')
-    
+
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
     <script src="{{ asset('js/responsive.bootstrap4.min.js') }}" defer></script>
     <script src="{{ asset('js/dataTables.responsive.min.js') }}" defer></script>
@@ -95,7 +95,7 @@
             $('#myTable').DataTable({
                 responsive: true
             });
-            
+
         } );
     </script>
 @endsection

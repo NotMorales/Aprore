@@ -2,26 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Mail\ValidacionSolicitada;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Http\Requests\PostulanteRequests;
-use App\Http\Requests\InformacionRequests;
 use App\Models\Empresa;
-use App\Models\Persona;
-use App\Models\User;
 use App\Models\UserPriv;
 use App\Models\Trabajador;
-use App\Models\Staff;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class PostulanteController extends Controller {
     public function __construct() {
@@ -59,9 +52,9 @@ class PostulanteController extends Controller {
         try {
             DB::beginTransaction();
                 $idPersona = DB::connection('mysql')->table('personas')->insertGetID([
-                    'nombre'            => $request['nombre'],
-                    'apellido_paterno'  => $request['apellido_paterno'],
-                    'apellido_materno'  => $request['apellido_materno'],
+                    'nombre'            => Str::upper( $request['nombre'] ),
+                    'apellido_paterno'  => Str::upper( $request['apellido_paterno'] ),
+                    'apellido_materno'  => Str::upper( $request['apellido_materno'] ),
                     'sexo'              => $request['sexo'],
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
@@ -69,9 +62,9 @@ class PostulanteController extends Controller {
 
                 DB::connection($empresa->data_base)->table('personas')->insert([
                     'id'                => $idPersona,
-                    'nombre'            => $request['nombre'],
-                    'apellido_paterno'  => $request['apellido_paterno'],
-                    'apellido_materno'  => $request['apellido_materno'],
+                    'nombre'            => Str::upper( $request['nombre'] ),
+                    'apellido_paterno'  => Str::upper( $request['apellido_paterno'] ),
+                    'apellido_materno'  => Str::upper( $request['apellido_materno'] ),
                     'sexo'              => $request['sexo'],
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
@@ -81,7 +74,7 @@ class PostulanteController extends Controller {
                     'role_id'           => 6,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
-                    'name'              => $request['nombre'],
+                    'name'              => Str::upper( $request['nombre'] ),
                     'email'             => $request['email'],
                     'password'          => Hash::make( 'Aprore-2020' )
                 ]);
@@ -91,7 +84,7 @@ class PostulanteController extends Controller {
                     'role_id'           => 6,
                     'persona_id'        => $idPersona,
                     'empresa_id'        => $empresa->id,
-                    'name'              => $request['nombre'],
+                    'name'              => Str::upper( $request['nombre'] ),
                     'email'             => $request['email'],
                     'password'          => Hash::make( 'Aprore-2020' )
                 ]);
@@ -147,18 +140,18 @@ class PostulanteController extends Controller {
         try {
             DB::beginTransaction();
                 DB::connection('mysql')->table('personas')->where('id', $postulante->user->persona->id)->update([
-                    'nombre'            => $request['nombre'],
-                    'apellido_paterno'  => $request['apellido_paterno'],
-                    'apellido_materno'  => $request['apellido_materno'],
+                    'nombre'            => Str::upper( $request['nombre'] ),
+                    'apellido_paterno'  => Str::upper( $request['apellido_paterno'] ),
+                    'apellido_materno'  => Str::upper( $request['apellido_materno'] ),
                     'sexo'              => $request['sexo'],
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
                 ]);
 
                 DB::connection($empresa->data_base)->table('personas')->where('id', $postulante->user->persona->id)->update([
-                    'nombre'            => $request['nombre'],
-                    'apellido_paterno'  => $request['apellido_paterno'],
-                    'apellido_materno'  => $request['apellido_materno'],
+                    'nombre'            => Str::upper( $request['nombre'] ),
+                    'apellido_paterno'  => Str::upper( $request['apellido_paterno'] ),
+                    'apellido_materno'  => Str::upper( $request['apellido_materno'] ),
                     'sexo'              => $request['sexo'],
                     'telefono'          => $request['telefono'],
                     'fecha_nacimiento'  => $request['fecha_nacimiento']
@@ -214,15 +207,16 @@ class PostulanteController extends Controller {
     }
 
 
-    public function validar($id) {
-        Gate::authorize('havepermiso', 'Trabajador.show');
+    /*public function validar($id) {
+        Gate::authorize('havepermiso', 'Postulante.show');
         $postulante = Trabajador::findOrFail( $id );
         // dd($postulante->user->empresa->nombre);
         return view('postulantes.validar', [
             'postulante' => $postulante
         ]);
-    }
-    public function validarSoli(Request $request) {
+    }*/
+
+    /*public function validarSoli(Request $request) {
         $postulante = Trabajador::findOrFail( $request->trabajador );
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         // return  new ValidacionSolicitada($postulante);
@@ -248,29 +242,28 @@ class PostulanteController extends Controller {
         }
         return redirect()->route('postulante.index')
             ->with('success', "La validacion fue solicitada correctamente.");
-    }
-    public function solicitudes() {
-        $asignaciones = Trabajador::where('visto_bueno', 1)->count();
-        return $asignaciones;
-    }
-    public function indexSoli() {
-        Gate::authorize('havepermiso', 'Trabajador.validar.aprobar');
+    }*/
+
+
+    /*public function indexSoli() {
+        Gate::authorize('havepermiso', 'Postulante.validar.aprobar');
         $empresa = Empresa::findOrFail( Auth::user()->empresa_id );
         $postulantes = Trabajador::where('visto_bueno', 1)->get();
         return view('postulantes.solicitud-index', [
             'postulantes' => $postulantes
         ]);
-    }
-    public function aprobarSoli($id) {
-        Gate::authorize('havepermiso', 'Trabajador.show');
+    }*/
+
+    /*public function aprobarSoli($id) {
+        Gate::authorize('havepermiso', 'Postulante.show');
         $postulante = Trabajador::findOrFail( $id );
         return view('postulantes.solicitud-show', [
             'postulante' => $postulante
         ]);
-    }
+    }*/
 
     public function solicitudAceptar(Request $request) {
-        Gate::authorize('havepermiso', 'Trabajador.show');
+        Gate::authorize('havepermiso', 'Postulante.show');
 
         $request->validate([
             'trabajador'    => 'required | Numeric',

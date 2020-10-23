@@ -10,9 +10,8 @@
             <div class="modal-body">
                 <p>Usted está por solicutar una aprobacion de este Postulante.</p>
                 <h4>¿Desea continuar?</h4>
-                <form id="form-validar-postulante" method="post" action="{{ route('trabajador.soliValidar') }}">
+                <form id="form-validar-postulante" method="post" action="{{ route('postulante.solicitud.store', $postulante->id ) }}">
                     @csrf
-                    <input type="hidden" name="trabajador">
                 </form>
             </div>
             <div class="modal-footer">

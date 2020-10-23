@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Postulante" 
-        :subheaders="[ ['href'=>'empresa.index', 'nombre'=>'Completar'] ]"
-        :acciones="[ ]">
+    <x-subheader title="Postulante"
+                 :subheaders="[  ]"
+                 :acciones="[ ]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -29,54 +29,53 @@
                         </x-boton> --}}
                     </div>
                 </div>
-                
+
                 <div class="card-body">
+                    @if ($postulante->descripcion != null)
+                        <div class="alert alert-danger mb-5 p-5" role="alert">
+                            <h4 class="alert-heading">Mensaje de rechazo anterior:</h4>
+                            <p>{{ $postulante->descripcion }}</p>
+                        </div>
+                    @endif
                     @if ( $errors->any() )
                         <x-errors></x-errors>
-                        <script>
-                            $('#solicitudRechazada').modal('show');
-                            $(function(){
-                                $('#solicitudRechazada').modal('show')
-                            });
-                        </script>
                     @endif
                     <div class="row">
                         <div class="form-group col-lg-6">
                             <label>Sexo </label>
                             <input type="tel" class="form-control" value="{{ $postulante->user->persona->sexo }}" readonly="readonly"/>
-                            </select>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Telefono:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->user->persona->telefono }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Fecha de Nacimiento:</label>
                             <input type="text" class="form-control" value="{{ $postulante->user->persona->fecha_nacimiento }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Correo Electronico:</label>
                             <input type="email" class="form-control" value="{{ $postulante->user->email }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Curp:</label>
                             <input type="text" class="form-control" value="{{ $postulante->curp }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>RFC:</label>
                             <input type="text" class="form-control" value="{{ $postulante->rfc }}" readonly="readonly"/>
                         </div>
-    
+
                         <div class="form-group col-lg-6">
                             <label>Numero de Seguro Social:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->nss }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Clabe Interbancaria:</label>
                             <input type="text" class="form-control" value="{{ $postulante->clabe_bancaria }}" readonly="readonly"/>
@@ -90,7 +89,7 @@
                             <label>Calle y Numero:</label>
                             <input type="text" class="form-control" value="{{ $postulante->calle }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Colonia:</label>
                             <input type="text" class="form-control" value="{{ $postulante->colonia }}" readonly="readonly"/>
@@ -100,20 +99,20 @@
                             <label>Ciudad:</label>
                             <input type="text" class="form-control " value="{{ $postulante->ciudad }}" readonly="readonly"/>
                         </div>
-                        
+
                         <div class="form-group col-lg-6">
                             <label>Codigo Postal:</label>
                             <input type="tel" class="form-control" value="{{ $postulante->codigo_postal }}" readonly="readonly"/>
                         </div>
                     </div>
-                    
+
                     <div>
                         <iframe src="{{'https://' . Storage::disk('expediente')->url($postulante->expediente_path)}}" width="100%" height="400" frameborder="0"></iframe>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <a href="#" data-toggle="modal" data-target="#solicitudRechazada" data-trabajador="{{ $postulante->id }}" class="btn btn-danger mr-2">Rechazar</a>
-                    <a href="{{ route('solicitudes.index') }}" class="btn btn-primary mr-2">Volver</a>
+                    <a href="{{ route('postulante.solicitud.index', 'ver') }}" class="btn btn-primary mr-2">Volver</a>
                     <a href="#" data-toggle="modal" data-target="#solicitudAprobada" data-trabajador="{{ $postulante->id }}" class="btn btn-success mr-2">Aceptar</a>
                 </div>
             </div>
@@ -132,9 +131,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-postulante-acep" method="post" action="{{ route('solicitud.aceptar') }}">
+                    <form id="form-postulante-acep" method="post" action="{{ route('solicitud.update', $postulante->id) }}">
                         @csrf
-                        <input type="hidden" name="trabajador" value="{{ $postulante->id }}">
+                        @method('PATCH')
+                        <input type="hidden" name="do" value="1">
                     </form>
                     <h4>¿Esta usted seguro?</h4>
                 </div>
@@ -155,9 +155,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="form-postulante-rech" method="post" action="{{ route('solicitud.rechazo') }}">
+                    <form id="form-postulante-rech" method="post" action="{{ route('solicitud.update', $postulante->id) }}">
                         @csrf
-                        <input type="hidden" name="trabajador" value="{{ $postulante->id }}">
+                        @method('PATCH')
+                        <input type="hidden" name="do" value="0">
                         <div class="form-group mb-1">
                             <label for="motivoRechazo">Motivo del rechazo:<span class="text-danger">*</span></label>
                             <textarea maxlength="10000" class="form-control @error('motivoRechazo') is-invalid @enderror" id="motivoRechazo" rows="3" name="motivoRechazo"></textarea>
@@ -170,23 +171,21 @@
                 </div>
             </div>
         </div>
-@endsection
+        @endsection
 
-@section('head') 
+        @section('head')
 
-@endsection
+        @endsection
 
-@section('script')
-<script>
-    $('#solicitudRechazada').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var modal = $(this);
-    });
-    $('#solicitudAprobada').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget);
-        var trabajador = button.data('trabajador');
-        var modal = $(this);
-        modal.find('.modal-body input[name=trabajador]').val(trabajador);
-    });
-</script>
+        @section('script')
+            <script>
+                $('#solicitudRechazada').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                });
+                $('#solicitudAprobada').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                });
+            </script>
 @endsection

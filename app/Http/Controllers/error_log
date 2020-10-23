@@ -1,8 +1,0 @@
-[01-Oct-2020 18:01:03 America/Mexico_City] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Routing\Controller' not found in /home1/aproreco/public_html/sisgp/app/Http/Controllers/Controller.php:10
-Stack trace:
-#0 {main}
-  thrown in /home1/aproreco/public_html/sisgp/app/Http/Controllers/Controller.php on line 10
-[01-Oct-2020 18:01:10 America/Mexico_City] PHP Fatal error:  Uncaught Error: Class 'App\Http\Controllers\Controller' not found in /home1/aproreco/public_html/sisgp/app/Http/Controllers/HomeController.php:12
-Stack trace:
-#0 {main}
-  thrown in /home1/aproreco/public_html/sisgp/app/Http/Controllers/HomeController.php on line 12

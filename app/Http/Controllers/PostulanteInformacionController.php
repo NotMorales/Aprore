@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class PostulanteInformacionController extends Controller {
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function index() {
         //
@@ -74,9 +77,9 @@ class PostulanteInformacionController extends Controller {
         try {
             DB::beginTransaction();
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
-                    'curp'              => $request['curp'],
-                    'rfc'               => $request['rfc'],
-                    'nss'               => $request['nss'],
+                    'curp'              => Str::upper( $request['curp'] ),
+                    'rfc'               => Str::upper( $request['rfc'] ),
+                    'nss'               => Str::upper( $request['nss'] ),
                     'calle'             => $request['calle'],
                     'colonia'           => $request['colonia'],
                     'ciudad'            => $request['ciudad'],
@@ -137,9 +140,9 @@ class PostulanteInformacionController extends Controller {
         try {
             DB::beginTransaction();
                 DB::connection($empresa->data_base)->table('trabajadores')->where('id', $postulante->id)->update([
-                    'curp'              => $request['curp'],
-                    'rfc'               => $request['rfc'],
-                    'nss'               => $request['nss'],
+                    'curp'              => Str::upper( $request['curp'] ),
+                    'rfc'               => Str::upper( $request['rfc'] ),
+                    'nss'               => Str::upper( $request['nss'] ),
                     'calle'             => $request['calle'],
                     'colonia'           => $request['colonia'],
                     'ciudad'            => $request['ciudad'],

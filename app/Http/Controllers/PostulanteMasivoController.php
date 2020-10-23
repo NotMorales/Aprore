@@ -16,6 +16,10 @@ use App\Models\Empresa;
 use Carbon\Carbon;
 
 class PostulanteMasivoController extends Controller {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index() {
         return view('masivo.index');
     }
