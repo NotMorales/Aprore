@@ -204,7 +204,7 @@ class PostulanteInformacionController extends Controller {
         return false;
     }
 
-    function validate_rfc($valor) {
+    public static function validate_rfc($valor) {
         if(Str::length($valor) == 13){
             $letras     = Str::substr($valor, 0, 4);
             $numeros    = Str::substr($valor, 4, 6);

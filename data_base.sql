@@ -163,14 +163,17 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
 
 
 -- -----------------------------------------------------
--- Table `sucursales`
+-- Table `aproreco_aprore`.`sucursales`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sucursales` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`sucursales` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
-  `descripcion` VARCHAR(255) NULL,
+  `razon_social` VARCHAR(255) NULL,
+  `rfc` VARCHAR(15) NULL,
+  `correo` VARCHAR(255) NULL,
   `telefono` VARCHAR(255) NULL,
   `direccion` VARCHAR(255) NULL,
+  `descripcion` VARCHAR(255) NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` DATETIME NULL,
@@ -178,9 +181,9 @@ CREATE TABLE IF NOT EXISTS `sucursales` (
 
 
 -- -----------------------------------------------------
--- Table `areas`
+-- Table `aproreco_aprore`.`areas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `areas` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`areas` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `sucursal_id` BIGINT NOT NULL,
   `nombre` VARCHAR(255) NOT NULL,
@@ -192,15 +195,15 @@ CREATE TABLE IF NOT EXISTS `areas` (
   INDEX `fk_areas_sucursales1_idx` (`sucursal_id` ASC),
   CONSTRAINT `fk_areas_sucursales1`
     FOREIGN KEY (`sucursal_id`)
-    REFERENCES `sucursales` (`id`)
+    REFERENCES `aproreco_aprore`.`sucursales` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `secciones`
+-- Table `aproreco_aprore`.`secciones`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `secciones` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`secciones` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `area_id` BIGINT NOT NULL,
   `nombre` VARCHAR(255) NOT NULL,
@@ -212,10 +215,9 @@ CREATE TABLE IF NOT EXISTS `secciones` (
   INDEX `fk_secciones_areas1_idx` (`area_id` ASC),
   CONSTRAINT `fk_secciones_areas1`
     FOREIGN KEY (`area_id`)
-    REFERENCES `areas` (`id`)
+    REFERENCES `aproreco_aprore`.`areas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
 
 -- -----------------------------------------------------
 -- Table `modulos`

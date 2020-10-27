@@ -12,6 +12,10 @@ use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserStaffController;
 use App\Http\Controllers\UserEncargadoController;
 use App\Http\Controllers\UserSecretariaController;
+use App\Http\Controllers\SucursalController;
+use App\Http\Controllers\AreaController;
+use App\Http\Controllers\SeccionController;
+use App\Http\Controllers\ContratoController;
 
 // Auth::loginUsingId(2);
 
@@ -23,6 +27,7 @@ Route::post('empresa/{empresa}/staff/assign', [UserStaffController::class, 'assi
 Route::resource('empresa.encargado', UserEncargadoController::class)->only(['create', 'store']);
 Route::resource('empresa.secretaria', UserSecretariaController::class)->only(['create', 'store']);
 
+//Modulo - Registro de Postulantes
 Route::resource('postulante', PostulanteController::class);
 Route::resource('postulante.informacion', PostulanteInformacionController::class)->except(['index', 'show', 'destroy'])->shallow();
 Route::resource('postulante.expediente', PostulanteExpedienteController::class)->except(['index', 'destroy'])->shallow();
@@ -31,6 +36,11 @@ Route::post('postulante/save/', [PostulanteMasivoController::class, 'save'])->na
 Route::get('postulantemasivo/plantilla/descargar', [PostulanteMasivoController::class, 'descargar'])->name('postulantemasivo.plantilla');
 Route::resource('postulante.solicitud', PostulanteSolicitudController::class)->shallow();
 
+//Modulo - Asignacion de contrato
+Route::resource('sucursal', SucursalController::class);
+Route::resource('sucursal.area', AreaController::class)->shallow();
+Route::resource('area.seccion', SeccionController::class)->shallow();
+Route::resource('contrato', ContratoController::class);
 
 Route::get('/home', function () {
     return view('welcome');
