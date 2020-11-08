@@ -69,6 +69,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'baja' => [
+            'driver' => 'local',
+            'root' => storage_path('app/baja'),
+            'url' => env('APP_URL').'/storage/app/baja',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -96,5 +103,6 @@ return [
         public_path('storage') => storage_path('app/public'),
         public_path('expediente') => storage_path('app/expediente'),
         public_path('masivo') => storage_path('app/masivo'),
+        public_path('baja') => storage_path('app/baja'),
     ],
 ];

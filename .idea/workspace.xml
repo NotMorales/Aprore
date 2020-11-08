@@ -19,23 +19,28 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="Primer modulo actualizado con UpperCase">
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/area/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/area/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/area/show.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/seccion/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/seccion/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/sucursal/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/sucursal/edit.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/sucursal/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/contrato/sucursal/show.blade.php" afterDir="false" />
+    <list default="true" id="b274633e-8ae0-4313-8fef-3acb98963b96" name="Default Changelist" comment="Sucursales, areas, secciones">
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/modals/mensaje.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/select.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/solicitud/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/bajas/solicitud/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/contrato/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostulanteInformacionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostulanteInformacionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ContratoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ContratoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Trabajador.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Trabajador.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/UserPriv.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserPriv.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_base.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data_base.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_base_inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/data_base_inserts.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/empresas/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/empresas/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/contrato/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/contrato/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/aside.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/postulantes/solicitud/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/postulantes/solicitud/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -215,7 +220,13 @@
       <workItem from="1603329320281" duration="1640000" />
       <workItem from="1603425022388" duration="6793000" />
       <workItem from="1603465952600" duration="6676000" />
-      <workItem from="1603769387010" duration="12298000" />
+      <workItem from="1603769387010" duration="19066000" />
+      <workItem from="1603864208759" duration="27000" />
+      <workItem from="1604509219620" duration="2841000" />
+      <workItem from="1604544243173" duration="3873000" />
+      <workItem from="1604599300168" duration="8714000" />
+      <workItem from="1604701986172" duration="2769000" />
+      <workItem from="1604722017232" duration="10533000" />
     </task>
     <task id="LOCAL-00001" summary="phpstorm">
       <created>1602886652367</created>
@@ -252,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603431805876</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Sucursales, areas, secciones">
+      <created>1603834598927</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603834598927</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -276,7 +294,8 @@
     <MESSAGE value="Ordenamiento 19-10" />
     <MESSAGE value="Validar CURP, NSS, RFC" />
     <MESSAGE value="Primer modulo actualizado con UpperCase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primer modulo actualizado con UpperCase" />
+    <MESSAGE value="Sucursales, areas, secciones" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sucursales, areas, secciones" />
   </component>
   <component name="WindowStateProjectService">
     <state x="275" y="42" key="#Deployment" timestamp="1602872194270">
@@ -287,18 +306,19 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="442" y="186" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1366.768@0.0.1366.768" timestamp="1603085101350" />
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603820834175">
-      <screen x="0" y="0" width="1366" height="768" />
+    <state x="580" y="195" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604793074880">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1603820834175" />
+    <state x="580" y="195" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/-1366.314.1366.768/0.0.1920.1080@0.0.1920.1080" timestamp="1604793074880" />
+    <state x="413" y="139" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1366.768@0.0.1366.768" timestamp="1604702483198" />
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog" timestamp="1602997460007">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="92" y="92" width="1182" height="584" key="DiffContextDialog/0.0.1366.768@0.0.1366.768" timestamp="1602997460007" />
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1603431810035">
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2" timestamp="1603834601476">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1603431810035" />
+    <state x="275" y="117" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1603834601476" />
     <state x="289" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602999008627">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -307,6 +327,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="500" y="298" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1602820991763" />
+    <state x="487" y="181" width="924" height="875" key="find.popup" timestamp="1604791596221">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="487" y="181" width="924" height="875" key="find.popup/-1366.314.1366.768/0.0.1920.1080@0.0.1920.1080" timestamp="1604791596221" />
+    <state x="390" y="88" width="657" height="622" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1604518317136" />
     <state x="339" y="172" key="run.anything.popup" timestamp="1603000424010">
       <screen x="0" y="0" width="1366" height="768" />
     </state>

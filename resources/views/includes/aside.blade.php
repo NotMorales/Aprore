@@ -166,6 +166,71 @@
                             </ul>
                         </div>
                     </li>
+                    @can('havemodulo', 'Registro de Postulantes')
+                        <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
+                            <a href="javascript:;" class="menu-link menu-toggle">
+                            <span class="svg-icon menu-icon">
+                                <!--begin::Svg Icon | path:assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"/>
+                                        <path d="M8.2928955,3.20710089 C7.90237121,2.8165766 7.90237121,2.18341162 8.2928955,1.79288733 C8.6834198,1.40236304 9.31658478,1.40236304 9.70710907,1.79288733 L15.7071091,7.79288733 C16.085688,8.17146626 16.0989336,8.7810527 15.7371564,9.17571874 L10.2371564,15.1757187 C9.86396402,15.5828377 9.23139665,15.6103407 8.82427766,15.2371482 C8.41715867,14.8639558 8.38965574,14.2313885 8.76284815,13.8242695 L13.6158645,8.53006986 L8.2928955,3.20710089 Z" fill="#000000" fill-rule="nonzero" transform="translate(12.000003, 8.499997) scale(-1, -1) rotate(-90.000000) translate(-12.000003, -8.499997) "/>
+                                        <path d="M6.70710678,19.2071045 C6.31658249,19.5976288 5.68341751,19.5976288 5.29289322,19.2071045 C4.90236893,18.8165802 4.90236893,18.1834152 5.29289322,17.7928909 L11.2928932,11.7928909 C11.6714722,11.414312 12.2810586,11.4010664 12.6757246,11.7628436 L18.6757246,17.2628436 C19.0828436,17.636036 19.1103465,18.2686034 18.7371541,18.6757223 C18.3639617,19.0828413 17.7313944,19.1103443 17.3242754,18.7371519 L12.0300757,13.8841355 L6.70710678,19.2071045 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" transform="translate(12.000003, 15.499997) scale(-1, -1) rotate(-360.000000) translate(-12.000003, -15.499997) "/>
+                                    </g>
+                                </svg>
+                                <!--end::Svg Icon-->
+                            </span>
+                                <span class="menu-text">Bajas</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="menu-submenu">
+                                <i class="menu-arrow"></i>
+                                <ul class="menu-subnav">
+                                    <li class="menu-item menu-item-parent" aria-haspopup="true">
+                                    <span class="menu-link">
+                                        <span class="menu-text">Bajas</span>
+                                    </span>
+                                    </li>
+                                    @can('havepermiso', 'Baja.index')
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{ route('baja.index') }}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Ver Bajas</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('havepermiso', 'Baja.create')
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{ route('baja.select') }}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Registrar Baja</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('havepermiso', 'Baja.solicitud.index')
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{ route('baja.solicitudbaja.index', 'ver') }}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-line">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Solicitudes de Bajas</span>
+                                                @inject('solicitudes_bajas', 'App\Http\Controllers\BajaSolicitudController')
+                                                @if ( $solicitudes_bajas->solicitudes() > 0)
+                                                    <span class="menu-label">
+                                                    <span class="label label-danger label-inline">{{ $solicitudes_bajas->solicitudes() }}</span>
+                                                </span>
+                                                @endif
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        </li>
+                    @endcan
                 @endcan
                 @can('havemodulo', 'Asignacion de contrato')
                     <li class="menu-section">

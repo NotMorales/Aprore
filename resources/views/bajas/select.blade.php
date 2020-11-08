@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Contratos"
-             :subheaders="[  ]"
-             :acciones="[ ['href'=>'contrato.create', 'nombre'=>'Crear Contrato', 'permiso'=>'Postulante.create'] ] ">
+    <x-subheader title="Registrar Baja"
+        :subheaders="[ ]"
+        :acciones="[ ['href'=>'baja.index', 'nombre'=>'Ver Bajas', 'permiso'=>'Baja.index'] ] ">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,8 +14,8 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Trabajadores | Contratos:
-                            <span class="d-block text-muted pt-2 font-size-sm">Listado de trabajadores, relacionadas con {{ $empresa->nombre }}.</span></h3>
+                        <h3 class="card-label">Seleccione el trabajador que sera dado de Baja:
+                            <span class="d-block text-muted pt-2 font-size-sm">Trabajadores, registrados en {{ $empresa->nombre }}.</span></h3>
                     </div>
                     <div class="card-toolbar">
 
@@ -23,30 +23,33 @@
                 </div>
                 <div class="card-body">
                     <!--begin: Datatable-->
-                    <table class="table display" id="myTable">
+                    <table class="display responsive nowrap" width="100%" id="Table">
                         <thead>
-                        <tr>
-                            <th>N° Empleado</th>
-                            <th>Nombre</th>
-                            <th>Rfc</th>
-                            <th>Email</th>
-                            <th>Telefono</th>
-                            <th>Acciones</th>
-                        </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Telefono</th>
+                                <th>Correo</th>
+                                <th>Estado</th>
+                                <th>Baja</th>
+                            </tr>
                         </thead>
                         <tbody>
                         @foreach ($trabajadores as $trabajador)
                             <tr>
-                                <td>{{ $trabajador->user->id }}</td>
-                                <td>{{ $trabajador->user->persona->nombre }} {{ $trabajador->user->persona->apellido_paterno }} {{ $trabajador->user->persona->apellido_materno }}</td>
-                                <td>{{ $trabajador->rfc }}</td>
-                                <td>{{ $trabajador->user->email }}</td>
+                                <td>{{ $trabajador->user->persona->nombre }}</td>
                                 <td>{{ $trabajador->user->persona->telefono }}</td>
-                                <td>
-                                    @can('havepermiso', 'Contrato.create')
-                                        <a href="{{ route('contrato.create') }}" title="crear"><i class="flaticon2-add text-primary"></i></a>
-                                    @endcan
-                                </td>
+                                <td>{{ $trabajador->user->email }}</td>
+                                @if ( $trabajador->estado == 4 )
+                                    <td>
+                                        <span class="label label-success label-inline mr-2">Aceptado</span>
+                                    </td>
+                                @endif
+                                @if ( $trabajador->estado == 6 )
+                                    <td>
+                                        <span class="label label-info label-inline mr-2">Contratado</span>
+                                    </td>
+                                @endif
+                                <td><a href="{{ route('postulante.baja.create', $trabajador) }}">Baja</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -67,15 +70,15 @@
 @endsection
 
 @section('script')
+
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
     <script src="{{ asset('js/responsive.bootstrap4.min.js') }}" defer></script>
     <script src="{{ asset('js/dataTables.responsive.min.js') }}" defer></script>
     <script>
         $(document).ready( function () {
-            $('#myTable').DataTable({
+            $('#Table').DataTable({
                 responsive: true
             });
-
         } );
     </script>
 @endsection

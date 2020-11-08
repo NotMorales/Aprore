@@ -16,6 +16,8 @@ use App\Http\Controllers\SucursalController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\SeccionController;
 use App\Http\Controllers\ContratoController;
+use App\Http\Controllers\BajaController;
+use App\Http\Controllers\BajaSolicitudController;
 
 // Auth::loginUsingId(2);
 
@@ -35,6 +37,11 @@ Route::resource('postulantemasivo', PostulanteMasivoController::class)->only(['i
 Route::post('postulante/save/', [PostulanteMasivoController::class, 'save'])->name('postulantemasivo.save');
 Route::get('postulantemasivo/plantilla/descargar', [PostulanteMasivoController::class, 'descargar'])->name('postulantemasivo.plantilla');
 Route::resource('postulante.solicitud', PostulanteSolicitudController::class)->shallow();
+
+Route::resource('postulante.baja', BajaController::class)->shallow();
+Route::resource('baja.solicitudbaja', BajaSolicitudController::class)->shallow();
+Route::get('baja', [BajaController::class, 'all'])->name('baja.index');
+Route::get('baja/select/trabajador', [BajaController::class, 'select'])->name('baja.select');
 
 //Modulo - Asignacion de contrato
 Route::resource('sucursal', SucursalController::class);

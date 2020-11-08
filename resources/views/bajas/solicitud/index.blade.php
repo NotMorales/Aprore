@@ -1,8 +1,8 @@
 @extends('layouts.appNew')
 @section('content')
-    <x-subheader title="Contratos"
-             :subheaders="[  ]"
-             :acciones="[ ['href'=>'contrato.create', 'nombre'=>'Crear Contrato', 'permiso'=>'Postulante.create'] ] ">
+    <x-subheader title="Solicitudes de bajas"
+                 :subheaders="[]"
+                 :acciones="[]">
     </x-subheader>
 
     <!--begin::Entry-->
@@ -14,8 +14,8 @@
             <div class="card card-custom gutter-b">
                 <div class="card-header flex-wrap py-3">
                     <div class="card-title">
-                        <h3 class="card-label">Trabajadores | Contratos:
-                            <span class="d-block text-muted pt-2 font-size-sm">Listado de trabajadores, relacionadas con {{ $empresa->nombre }}.</span></h3>
+                        <h3 class="card-label">Solicitudes de Bajas:
+                            <span class="d-block text-muted pt-2 font-size-sm">Listado de solcitudes de Baja, por aceptar.</span></h3>
                     </div>
                     <div class="card-toolbar">
 
@@ -26,29 +26,31 @@
                     <table class="table display" id="myTable">
                         <thead>
                         <tr>
-                            <th>N° Empleado</th>
                             <th>Nombre</th>
-                            <th>Rfc</th>
-                            <th>Email</th>
-                            <th>Telefono</th>
+                            <th>Tipo</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($trabajadores as $trabajador)
-                            <tr>
-                                <td>{{ $trabajador->user->id }}</td>
-                                <td>{{ $trabajador->user->persona->nombre }} {{ $trabajador->user->persona->apellido_paterno }} {{ $trabajador->user->persona->apellido_materno }}</td>
-                                <td>{{ $trabajador->rfc }}</td>
-                                <td>{{ $trabajador->user->email }}</td>
-                                <td>{{ $trabajador->user->persona->telefono }}</td>
-                                <td>
-                                    @can('havepermiso', 'Contrato.create')
-                                        <a href="{{ route('contrato.create') }}" title="crear"><i class="flaticon2-add text-primary"></i></a>
-                                    @endcan
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach ($bajas as $baja)
+                                <tr>
+                                    <td>{{ $baja->trabajador->user->persona->nombre }}</td>
+                                    <td>{{ $baja->tipo_baja }}</td>
+                                    <td>{{ $baja->fecha_baja }}</td>
+                                    @if ( $baja->estado == 0 )
+                                        <td>
+                                            <span class="label label-warning label-inline mr-2">Solicitud</span>
+                                        </td>
+                                        <td>
+                                            @can('havepermiso', 'Baja.solicitud.show')
+                                                <a href="{{ route('solicitudbaja.show', $baja) }}" title="Ver"><i class="flaticon-eye text-primary"></i></a>
+                                            @endcan
+                                        </td>
+                                    @endif
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!--end: Datatable-->
@@ -59,6 +61,7 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
+    @include('postulantes.modal.deleteTrabajador')
 @endsection
 
 @section('head')
@@ -67,6 +70,7 @@
 @endsection
 
 @section('script')
+
     <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
     <script src="{{ asset('js/responsive.bootstrap4.min.js') }}" defer></script>
     <script src="{{ asset('js/dataTables.responsive.min.js') }}" defer></script>

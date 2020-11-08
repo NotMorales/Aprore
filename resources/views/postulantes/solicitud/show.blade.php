@@ -171,21 +171,22 @@
                 </div>
             </div>
         </div>
-        @endsection
+    </div>
+@endsection
 
-        @section('head')
+@section('head')
 
-        @endsection
+@endsection
 
-        @section('script')
-            <script>
-                $('#solicitudRechazada').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget);
-                    var modal = $(this);
-                });
-                $('#solicitudAprobada').on('show.bs.modal', function (event) {
-                    var button = $(event.relatedTarget);
-                    var modal = $(this);
-                });
-            </script>
+@section('script')
+    <script>
+        $('#solicitudRechazada').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+        });
+        $('#solicitudAprobada').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var modal = $(this);
+        });
+    </script>
 @endsection

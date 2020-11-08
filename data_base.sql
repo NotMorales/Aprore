@@ -1,13 +1,7 @@
 -- -----------------------------------------------------
--- Schema aproreco_db
+-- Table `aproreco_aprore`.`personas`
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `aproreco_db` DEFAULT CHARACTER SET utf8 ;
-USE `aproreco_db` ;
-
--- -----------------------------------------------------
--- Table `personas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `personas` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`personas` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   `apellido_paterno` VARCHAR(255) NOT NULL,
@@ -22,9 +16,9 @@ CREATE TABLE IF NOT EXISTS `personas` (
 
 
 -- -----------------------------------------------------
--- Table `empresas`
+-- Table `aproreco_aprore`.`empresas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `empresas` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`empresas` (
   `id` BIGINT NOT NULL,
   `nombre` VARCHAR(255) NOT NULL,
   `direccion` VARCHAR(255) NOT NULL,
@@ -41,9 +35,9 @@ CREATE TABLE IF NOT EXISTS `empresas` (
 
 
 -- -----------------------------------------------------
--- Table `roles`
+-- Table `aproreco_aprore`.`roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `roles` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`roles` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   `descripcion` VARCHAR(255) NULL,
@@ -54,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 
 -- -----------------------------------------------------
--- Table `users`
+-- Table `aproreco_aprore`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`users` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `persona_id` BIGINT NOT NULL,
   `role_id` BIGINT NOT NULL,
@@ -78,25 +72,25 @@ CREATE TABLE IF NOT EXISTS `users` (
   INDEX `fk_users_roles1_idx` (`role_id` ASC),
   CONSTRAINT `fk_users_personas1`
     FOREIGN KEY (`persona_id`)
-    REFERENCES `personas` (`id`)
+    REFERENCES `aproreco_aprore`.`personas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_empresas1`
     FOREIGN KEY (`empresa_id`)
-    REFERENCES `empresas` (`id`)
+    REFERENCES `aproreco_aprore`.`empresas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_roles1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `roles` (`id`)
+    REFERENCES `aproreco_aprore`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `permisos`
+-- Table `aproreco_aprore`.`permisos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `permisos` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`permisos` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   `descripcion` VARCHAR(255) NULL,
@@ -108,9 +102,9 @@ CREATE TABLE IF NOT EXISTS `permisos` (
 
 
 -- -----------------------------------------------------
--- Table `permiso_role`
+-- Table `aproreco_aprore`.`permiso_role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `permiso_role` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`permiso_role` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `permiso_id` BIGINT NOT NULL,
   `role_id` BIGINT NOT NULL,
@@ -122,20 +116,20 @@ CREATE TABLE IF NOT EXISTS `permiso_role` (
   INDEX `fk_permiso_rol_roles1_idx` (`role_id` ASC),
   CONSTRAINT `fk_permiso_rol_permisos1`
     FOREIGN KEY (`permiso_id`)
-    REFERENCES `permisos` (`id`)
+    REFERENCES `aproreco_aprore`.`permisos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_permiso_rol_roles1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `roles` (`id`)
+    REFERENCES `aproreco_aprore`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `trabajadores`
+-- Table `aproreco_aprore`.`trabajadores`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trabajadores` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`trabajadores` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT NOT NULL,
   `curp` VARCHAR(255) NULL,
@@ -146,10 +140,11 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   `ciudad` VARCHAR(255) NULL,
   `codigo_postal` VARCHAR(255) NULL,
   `clabe_bancaria` VARCHAR(255) NULL,
+  `estado` TINYINT NULL DEFAULT 0,
+  `fecha_alta` DATE NULL,
+  `expediente_path` TEXT NULL,
   `visto_bueno` TINYINT NULL,
   `descripcion` TEXT NULL,
-  `expediente_path` TEXT NULL,
-  `fecha_alta` DATE NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` DATETIME NULL,
@@ -157,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `trabajadores` (
   INDEX `user_idFK_idx` (`user_id` ASC),
   CONSTRAINT `user_idFK`
     FOREIGN KEY (`user_id`)
-    REFERENCES `users` (`id`)
+    REFERENCES `aproreco_aprore`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -219,10 +214,11 @@ CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`secciones` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+
 -- -----------------------------------------------------
--- Table `modulos`
+-- Table `aproreco_aprore`.`modulos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `modulos` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`modulos` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(255) NOT NULL,
   `descripcion` VARCHAR(255) NULL,
@@ -233,9 +229,9 @@ CREATE TABLE IF NOT EXISTS `modulos` (
 
 
 -- -----------------------------------------------------
--- Table `empresa_modulo`
+-- Table `aproreco_aprore`.`empresa_modulo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `empresa_modulo` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`empresa_modulo` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `empresa_id` BIGINT NOT NULL,
   `modulo_id` BIGINT NOT NULL,
@@ -247,20 +243,20 @@ CREATE TABLE IF NOT EXISTS `empresa_modulo` (
   INDEX `fk_modulo_user_empresas1_idx` (`empresa_id` ASC),
   CONSTRAINT `fk_modulo_user_modulos1`
     FOREIGN KEY (`modulo_id`)
-    REFERENCES `modulos` (`id`)
+    REFERENCES `aproreco_aprore`.`modulos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_modulo_user_empresas1`
     FOREIGN KEY (`empresa_id`)
-    REFERENCES `empresas` (`id`)
+    REFERENCES `aproreco_aprore`.`empresas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `staffs`
+-- Table `aproreco_aprore`.`staffs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `staffs` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`staffs` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `empresa_id` BIGINT NOT NULL,
   `user_id` BIGINT NOT NULL,
@@ -274,25 +270,25 @@ CREATE TABLE IF NOT EXISTS `staffs` (
   INDEX `fk_staffs_roles1_idx` (`role_id` ASC),
   CONSTRAINT `fk_staffs_empresas1`
     FOREIGN KEY (`empresa_id`)
-    REFERENCES `empresas` (`id`)
+    REFERENCES `aproreco_aprore`.`empresas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_staffs_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `users` (`id`)
+    REFERENCES `aproreco_aprore`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_staffs_roles1`
     FOREIGN KEY (`role_id`)
-    REFERENCES `roles` (`id`)
+    REFERENCES `aproreco_aprore`.`roles` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `utils`
+-- Table `aproreco_aprore`.`utils`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `utils` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`utils` (
   `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` DATETIME NULL,
@@ -302,9 +298,48 @@ CREATE TABLE IF NOT EXISTS `utils` (
 
 
 -- -----------------------------------------------------
--- Table `puestos`
+-- Table `aproreco_aprore`.`bajas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `puestos` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`bajas` (
+  `id` BIGINT NOT NULL,
+  `trabajador_id` BIGINT NOT NULL,
+  `tipo_baja` VARCHAR(255) NULL,
+  `fecha_baja` DATE NULL,
+  `descripcion` VARCHAR(255) NULL,
+  `doc_renuncia_patch` TEXT NULL,
+  `estado` TINYINT NULL,
+  `visto_bueno` TINYINT NULL,
+  `descripcion` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_bajas_trabajadores1_idx` (`trabajador_id` ASC),
+  CONSTRAINT `fk_bajas_trabajadores1`
+    FOREIGN KEY (`trabajador_id`)
+    REFERENCES `aproreco_aprore`.`trabajadores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `aproreco_aprore`.`tabuladores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`tabuladores` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `rango` VARCHAR(255) NULL,
+  `nivel` VARCHAR(255) NULL,
+  `salario_mensual` DOUBLE NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` DATETIME NULL,
+  PRIMARY KEY (`id`));
+
+
+-- -----------------------------------------------------
+-- Table `aproreco_aprore`.`puestos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`puestos` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `area_id` BIGINT NOT NULL,
   `seccion_id` BIGINT NOT NULL,
@@ -319,35 +354,46 @@ CREATE TABLE IF NOT EXISTS `puestos` (
   INDEX `fk_puesto_secciones1_idx` (`seccion_id` ASC),
   CONSTRAINT `fk_puesto_areas1`
     FOREIGN KEY (`area_id`)
-    REFERENCES `areas` (`id`)
+    REFERENCES `aproreco_aprore`.`areas` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_puesto_secciones1`
     FOREIGN KEY (`seccion_id`)
-    REFERENCES `secciones` (`id`)
+    REFERENCES `aproreco_aprore`.`secciones` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `tabuladores`
+-- Table `aproreco_aprore`.`vacante`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `tabuladores` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`vacante` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `puesto` VARCHAR(255) NULL,
-  `rango` VARCHAR(255) NULL,
-  `nivel` VARCHAR(255) NULL,
-  `salario_mensual` DOUBLE NULL,
+  `puesto_id` BIGINT NOT NULL,
+  `tabulador_id` BIGINT NOT NULL,
+  `descripcion` VARCHAR(255) NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`));
+  PRIMARY KEY (`id`),
+  INDEX `fk_vacante_puesto1_idx` (`puesto_id` ASC),
+  INDEX `fk_vacante_tabuladores1_idx` (`tabulador_id` ASC),
+  CONSTRAINT `fk_vacante_puesto1`
+    FOREIGN KEY (`puesto_id`)
+    REFERENCES `aproreco_aprore`.`puestos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_vacante_tabuladores1`
+    FOREIGN KEY (`tabulador_id`)
+    REFERENCES `aproreco_aprore`.`tabuladores` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `contratos`
+-- Table `aproreco_aprore`.`contratos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `contratos` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`contratos` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `trabajador_id` BIGINT NOT NULL,
   `puesto_id` BIGINT NOT NULL,
@@ -368,74 +414,25 @@ CREATE TABLE IF NOT EXISTS `contratos` (
   INDEX `fk_contrato_tabuladores1_idx` (`tabulador_id` ASC),
   CONSTRAINT `fk_contrato_puestos1`
     FOREIGN KEY (`puesto_id`)
-    REFERENCES `puestos` (`id`)
+    REFERENCES `aproreco_aprore`.`puestos` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contrato_trabajadores1`
     FOREIGN KEY (`trabajador_id`)
-    REFERENCES `trabajadores` (`id`)
+    REFERENCES `aproreco_aprore`.`trabajadores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_contrato_tabuladores1`
     FOREIGN KEY (`tabulador_id`)
-    REFERENCES `tabuladores` (`id`)
+    REFERENCES `aproreco_aprore`.`tabuladores` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
--- Table `bajas`
+-- Table `aproreco_aprore`.`failed_jobs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bajas` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `contrato_id` BIGINT NOT NULL,
-  `tipo_baja` VARCHAR(255) NULL,
-  `fecha_baja` DATE NULL,
-  `descripcion` VARCHAR(255) NULL,
-  `doc_renuncia_patch` TEXT NULL,
-  `visto_bueno` TINYINT NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_bajas_contrato1_idx` (`contrato_id` ASC),
-  CONSTRAINT `fk_bajas_contrato1`
-    FOREIGN KEY (`contrato_id`)
-    REFERENCES `contratos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `vacante`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `vacante` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `puesto_id` BIGINT NOT NULL,
-  `tabulador_id` BIGINT NOT NULL,
-  `descripcion` VARCHAR(255) NULL,
-  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` DATETIME NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_vacante_puesto1_idx` (`puesto_id` ASC),
-  INDEX `fk_vacante_tabuladores1_idx` (`tabulador_id` ASC),
-  CONSTRAINT `fk_vacante_puesto1`
-    FOREIGN KEY (`puesto_id`)
-    REFERENCES `puestos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_vacante_tabuladores1`
-    FOREIGN KEY (`tabulador_id`)
-    REFERENCES `tabuladores` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
--- -----------------------------------------------------
--- Table `failed_jobs`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `failed_jobs` (
+CREATE TABLE IF NOT EXISTS `aproreco_aprore`.`failed_jobs` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `uuid` VARCHAR(255) NOT NULL,
   `connection` TEXT NOT NULL,

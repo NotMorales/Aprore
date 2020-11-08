@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
-class Trabajador extends Model
+class Baja extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    protected $table = 'trabajadores';
+    protected $table = 'bajas';
     protected $primaryKey = 'id';
     protected $fillable = [];
 
@@ -24,11 +23,7 @@ class Trabajador extends Model
         $this->connection = $user->empresa->data_base;
     }
 
-    public function user() {
-        return $this->hasOne('App\Models\UserPriv', 'id', 'user_id');
-    }
-
-    public function contratos() {
-        return $this->belongsTo('App\Models\Contrato');
+    public function trabajador() {
+        return $this->hasOne('App\Models\Trabajador', 'id', 'trabajador_id');
     }
 }
